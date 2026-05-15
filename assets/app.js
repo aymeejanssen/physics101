@@ -731,12 +731,14 @@ function listItems(items) {
 }
 
 function renderBookItems(books) {
-  return books.map((book) => `
+  return books.map((book, index) => `
     <div class="book-item">
+      <div class="book-kicker">Book ${index + 1}</div>
       <h4>${book.title}</h4>
-      <p><strong>Use it for:</strong> ${book.use}</p>
-      <p><strong>Study:</strong> ${book.chapters}</p>
-      <p><strong>Main point:</strong> ${book.summary}</p>
+      <p><strong>Why read it:</strong> ${book.use}</p>
+      <p><strong>Chapters/topics to study:</strong> ${book.chapters}</p>
+      <p><strong>Mini summary:</strong> ${book.summary}</p>
+      <p><strong>What to extract from it:</strong> definitions, solved examples, problem-solving patterns, and the formulas that connect to this lesson.</p>
     </div>
   `).join("");
 }
@@ -798,6 +800,11 @@ function openConceptLesson(id) {
         <h3>What This Subject Is About</h3>
         <p>${concept.summary}</p>
       </section>
+      <section class="lesson-panel full book-spotlight">
+        <h3>Books To Read For This Topic</h3>
+        <p>These are the topic-specific books or university resources to use for this lesson. Read the listed chapters/topics, then do problems from the same section before moving forward.</p>
+        <div class="book-list">${renderBookItems(concept.books)}</div>
+      </section>
       <section class="lesson-panel">
         <h3>What You Must Learn</h3>
         <ul>${listItems(concept.mustLearn)}</ul>
@@ -806,10 +813,6 @@ function openConceptLesson(id) {
         <h3>Why It Matters For Quantum Physics</h3>
         <p>${concept.goal}</p>
         <p style="margin-top:8px"><strong>Prerequisites:</strong> ${concept.prereq.length ? concept.prereq.map((item) => CONCEPTS.find((c) => c.id === item)?.title || item).join(", ") : "None. Start here."}</p>
-      </section>
-      <section class="lesson-panel full">
-        <h3>University Books And Mini Summaries</h3>
-        <div class="book-list">${renderBookItems(concept.books)}</div>
       </section>
       <section class="lesson-panel full">
         <h3>Formulas To Understand</h3>
