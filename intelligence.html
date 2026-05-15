@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Learning Systems | Quantum University AI</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">Quantum University AI</a>
+      <div class="nav-links">
+        <a href="index.html">Vision</a>
+        <a href="platform.html">Platform</a>
+        <a href="architecture.html">Architecture</a>
+        <a class="active" href="intelligence.html">AI Systems</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="sitemap.html">Sitemap</a>
+        <a href="quantum-curriculum.html">Study Hub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero small">
+      <canvas class="field-canvas" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <span class="eyebrow">Tutor prompts, textbook intelligence, practice, and datasets</span>
+        <h1>AI Learning Systems</h1>
+        <p class="hero-copy">A controlled AI architecture for teaching physics: Socratic tutoring, textbook intelligence, adaptive practice, multimodal visualization, and memory of weaknesses.</p>
+      </div>
+    </section>
+
+    <section class="section" id="tutor">
+      <div class="section-head">
+        <h2>Adaptive AI Tutor</h2>
+        <p>The tutor should feel like a brilliant professor who refuses to let the learner stay passive.</p>
+      </div>
+      <div class="grid three">
+        <article class="card accent-teal">
+          <h3>Socratic Mode</h3>
+          <p>Ask one targeted question at a time. Make the learner predict, explain, choose an assumption, or identify the missing relation.</p>
+        </article>
+        <article class="card accent-gold">
+          <h3>Hint Ladder</h3>
+          <p>Hint 1 identifies the concept. Hint 2 gives structure. Hint 3 gives a key equation. Full solution is delayed until effort is shown.</p>
+        </article>
+        <article class="card accent-violet">
+          <h3>Difficulty Shifting</h3>
+          <p>Every explanation can be rendered as intuitive, algebraic, calculus-based, formal, or researcher-level.</p>
+        </article>
+        <article class="card accent-blue">
+          <h3>Gap Detection</h3>
+          <p>If a user fails a quantum step because of linear algebra, the tutor routes them to eigenvectors, not more quantum jargon.</p>
+        </article>
+        <article class="card accent-green">
+          <h3>Weakness Memory</h3>
+          <p>Recurring errors become review targets: sign errors, boundary conditions, units, normalization, basis confusion, or derivative mistakes.</p>
+        </article>
+        <article class="card accent-red">
+          <h3>Metacognitive Coaching</h3>
+          <p>The tutor teaches how to study physics: draw, define, derive, solve, check units, compare limiting cases, and reflect.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="textbook">
+      <div class="section-head">
+        <h2>Textbook Intelligence System</h2>
+        <p>The platform should not copy textbooks. It should build structured, original study intelligence around licensed or open materials.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Chapter Artifact</th><th>What It Contains</th><th>How It Is Used</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Concept Map</td><td>Prerequisites, chapter concepts, dependency edges, formulas, and misconceptions.</td><td>Feeds roadmap generation and unlock logic.</td></tr>
+            <tr><td>Original Summary</td><td>Short, medium, and deep summaries written in new language.</td><td>Supports quick review and adaptive explanation levels.</td></tr>
+            <tr><td>Derivation Guide</td><td>Step-by-step derivation outline, assumptions, and why each move is legal.</td><td>Used by the tutor and derivation practice engine.</td></tr>
+            <tr><td>Formula Sheet</td><td>Formula, meaning, units, assumptions, and example use case.</td><td>Used in review mode and exam prep.</td></tr>
+            <tr><td>Common Mistakes</td><td>Known errors, misconception signatures, and correction strategy.</td><td>Used in grading and personalized remediation.</td></tr>
+            <tr><td>Worked Examples</td><td>Original examples with rubric, hint ladder, and final solution.</td><td>Used for lesson practice and tutor references.</td></tr>
+            <tr><td>Visual Summary</td><td>Graphs, animations, diagrams, and simulation hooks.</td><td>Used to pair symbolic and visual learning.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="panel-band">
+      <section class="section" id="practice">
+        <div class="section-head">
+          <h2>AI-Generated Practice</h2>
+          <p>Practice is generated from concept state, difficulty target, prior errors, and desired problem type.</p>
+        </div>
+        <div class="grid three">
+          <article class="card">
+            <h3>Adaptive Quizzes</h3>
+            <p>Short checks that adapt difficulty and decide whether to continue, review, or unlock.</p>
+          </article>
+          <article class="card">
+            <h3>Exam-Style Problems</h3>
+            <p>Timed, multi-step problems with rubrics, partial credit, and post-exam remediation.</p>
+          </article>
+          <article class="card">
+            <h3>Conceptual Questions</h3>
+            <p>Questions that test interpretation, limiting cases, assumptions, and physical meaning.</p>
+          </article>
+          <article class="card">
+            <h3>Olympiad Challenges</h3>
+            <p>Hard problems that combine mechanics, symmetry, approximation, and creative reasoning.</p>
+          </article>
+          <article class="card">
+            <h3>Derivation Exercises</h3>
+            <p>Step ordering, missing-step completion, proof critique, and full derivation from assumptions.</p>
+          </article>
+          <article class="card">
+            <h3>Research Prep</h3>
+            <p>Paper-reading checks, model-building prompts, numerical experiments, and open-ended investigations.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="prompts">
+      <div class="section-head">
+        <h2>Recommended AI Prompts</h2>
+        <p>These are system prompt templates for implementation. They should be combined with retrieved context, concept graph state, and user mastery records.</p>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <h3>Socratic Tutor Prompt</h3>
+          <pre id="promptTutor"><code>You are a physics tutor teaching {concept}.
+Goal: help the learner reason, not copy.
+Use the learner profile: {profile}.
+Known weaknesses: {weaknesses}.
+Rules:
+1. Ask one focused question before explaining.
+2. If the learner is stuck, give a hint ladder.
+3. Do not reveal the final answer until effort is visible.
+4. Connect every symbolic step to physical meaning.
+5. End with one check-for-understanding question.</code></pre>
+          <button class="button secondary" data-copy="#promptTutor" type="button">Copy Prompt</button>
+        </article>
+        <article class="card">
+          <h3>Problem Generator Prompt</h3>
+          <pre id="promptProblem"><code>Create a physics problem for concept {concept}.
+Difficulty: {difficulty}.
+Type: conceptual | computational | derivation | exam | challenge.
+Include:
+- problem statement
+- hidden solution
+- rubric
+- 3-step hint ladder
+- common mistakes
+- prerequisite concepts
+Avoid ambiguity unless the task is explicitly open-ended.</code></pre>
+          <button class="button secondary" data-copy="#promptProblem" type="button">Copy Prompt</button>
+        </article>
+        <article class="card">
+          <h3>Chapter Intelligence Prompt</h3>
+          <pre id="promptChapter"><code>Summarize this chapter chunk into structured learning intelligence.
+Return:
+- key concepts
+- intuitive explanation
+- derivation map
+- formulas with assumptions
+- common mistakes
+- worked example ideas
+- practice question ideas
+- visual summary ideas
+Do not reproduce copyrighted prose. Write original teaching notes.</code></pre>
+          <button class="button secondary" data-copy="#promptChapter" type="button">Copy Prompt</button>
+        </article>
+        <article class="card">
+          <h3>Diagnostic Item Prompt</h3>
+          <pre id="promptDiagnostic"><code>Generate the next diagnostic question.
+Current estimate: {mastery_estimate}.
+Uncertain concepts: {uncertain_concepts}.
+Target: maximize information gain.
+Return:
+- question
+- expected answer
+- scoring rubric
+- misconception signals
+- next branch if correct
+- next branch if incorrect</code></pre>
+          <button class="button secondary" data-copy="#promptDiagnostic" type="button">Copy Prompt</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="datasets">
+      <div class="section-head">
+        <h2>Recommended Datasets and Content Sources</h2>
+        <p>Use open and licensed sources carefully. Public resources are excellent for links, metadata, and learning pathways; copyrighted textbooks require permission or user-owned access.</p>
+      </div>
+      <div class="grid three">
+        <article class="card accent-teal">
+          <h3>Open Course Material</h3>
+          <ul class="feature-list">
+            <li><a href="https://ocw.mit.edu/" target="_blank" rel="noreferrer">MIT OpenCourseWare</a> for lectures, exams, assignments, and course structure.</li>
+            <li><a href="https://openstax.org/subjects/science" target="_blank" rel="noreferrer">OpenStax Science</a> for free textbooks.</li>
+            <li><a href="https://www.khanacademy.org/science/physics" target="_blank" rel="noreferrer">Khan Academy Physics</a> for foundational practice.</li>
+          </ul>
+        </article>
+        <article class="card accent-gold">
+          <h3>Simulations and Visuals</h3>
+          <ul class="feature-list">
+            <li><a href="https://phet.colorado.edu/" target="_blank" rel="noreferrer">PhET Interactive Simulations</a> for reference-quality educational simulations.</li>
+            <li>Wikimedia Commons for openly licensed diagrams when license metadata is tracked.</li>
+            <li>Custom generated diagrams and canvas/WebGL visuals for product-owned assets.</li>
+          </ul>
+        </article>
+        <article class="card accent-violet">
+          <h3>Research and Metadata</h3>
+          <ul class="feature-list">
+            <li><a href="https://info.arxiv.org/help/api/index.html" target="_blank" rel="noreferrer">arXiv API</a> for research discovery metadata.</li>
+            <li><a href="https://www.semanticscholar.org/product/api" target="_blank" rel="noreferrer">Semantic Scholar API</a> for paper metadata and citation graph enrichment.</li>
+            <li>Institution-licensed corpora for deeper textbook and paper intelligence.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    AI systems should be continuously evaluated against expert-authored solutions and pedagogical rubrics.
+  </footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

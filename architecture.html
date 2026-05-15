@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical Architecture | Quantum University AI</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">Quantum University AI</a>
+      <div class="nav-links">
+        <a href="index.html">Vision</a>
+        <a href="platform.html">Platform</a>
+        <a class="active" href="architecture.html">Architecture</a>
+        <a href="intelligence.html">AI Systems</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="sitemap.html">Sitemap</a>
+        <a href="quantum-curriculum.html">Study Hub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero small">
+      <canvas class="field-canvas" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <span class="eyebrow">Technical architecture and implementation strategy</span>
+        <h1>Build System</h1>
+        <p class="hero-copy">A production-ready architecture for adaptive curriculum, AI tutoring, textbook intelligence, vector search, simulations, assessments, and institution-scale deployment.</p>
+      </div>
+    </section>
+
+    <section class="section" id="stack">
+      <div class="section-head">
+        <h2>Recommended Stack</h2>
+        <p>Start with a modular monolith to move fast, then split simulation, AI orchestration, ingestion, and analytics services when usage demands it.</p>
+      </div>
+      <div class="grid three">
+        <article class="card accent-teal">
+          <h3>Frontend</h3>
+          <ul class="feature-list">
+            <li>Next.js with TypeScript and React Server Components.</li>
+            <li>Tailwind or token-based CSS modules for design consistency.</li>
+            <li>Three.js / React Three Fiber for 3D physics visuals.</li>
+            <li>D3 or Observable Plot for graphs and learning analytics.</li>
+            <li>MathJax or KaTeX for equations.</li>
+          </ul>
+        </article>
+        <article class="card accent-gold">
+          <h3>Backend</h3>
+          <ul class="feature-list">
+            <li>Node.js/NestJS or Python/FastAPI for API services.</li>
+            <li>PostgreSQL as primary relational database.</li>
+            <li>Redis for sessions, queues, rate limits, and tutor memory cache.</li>
+            <li>Object storage for textbook chunks, images, simulation assets, and exports.</li>
+            <li>Background workers for ingestion, grading, and report generation.</li>
+          </ul>
+        </article>
+        <article class="card accent-violet">
+          <h3>AI and Search</h3>
+          <ul class="feature-list">
+            <li>LLM orchestration layer with provider abstraction.</li>
+            <li>Postgres + pgvector for MVP vector search.</li>
+            <li>Hybrid retrieval: vector similarity + keyword + graph constraints.</li>
+            <li>Structured output validation for tests, roadmaps, and tutor actions.</li>
+            <li>Evaluation harness for hallucination, pedagogy, and problem correctness.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="data-flow">
+      <div class="section-head">
+        <h2>Data Flow</h2>
+        <p>The system treats learning as a loop: diagnose, teach, practice, observe, update mastery, unlock next concept.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>1. Intake</strong>
+          <div><h3>Adaptive diagnostic</h3><p>Questions are selected by current estimate of mastery, prerequisite graph position, and uncertainty.</p></div>
+        </div>
+        <div class="timeline-item">
+          <strong>2. Roadmap</strong>
+          <div><h3>Curriculum planner</h3><p>Graph traversal builds a route from current state to target goal with weekly workload and mastery gates.</p></div>
+        </div>
+        <div class="timeline-item">
+          <strong>3. Lesson</strong>
+          <div><h3>Tutor and content retrieval</h3><p>Relevant concept nodes, textbook summaries, formulas, examples, and misconceptions are retrieved for the tutor.</p></div>
+        </div>
+        <div class="timeline-item">
+          <strong>4. Practice</strong>
+          <div><h3>Adaptive generator</h3><p>Problems are generated or selected according to weakness, difficulty, problem type, and recent errors.</p></div>
+        </div>
+        <div class="timeline-item">
+          <strong>5. Mastery</strong>
+          <div><h3>Learning model update</h3><p>Performance updates concept mastery, misconception flags, confidence, and review scheduling.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="panel-band">
+      <section class="section" id="database">
+        <div class="section-head">
+          <h2>Database Design</h2>
+          <p>Use relational tables for truth, graph edges for dependencies, vector indexes for retrieval, and event logs for learning analytics.</p>
+        </div>
+        <div class="schema">
+          <pre><code>users
+  id, email, name, role, target_goal, created_at
+
+profiles
+  user_id, math_level, physics_level, reasoning_profile, learning_preferences
+
+concepts
+  id, slug, title, domain, level, summary, canonical_formula_ids
+
+concept_edges
+  id, source_concept_id, target_concept_id, relationship_type
+  relationship_type: prerequisite | supports | applies_to | misconception_related
+
+mastery_records
+  id, user_id, concept_id, mastery_score, confidence, last_seen_at, next_review_at
+
+diagnostic_sessions
+  id, user_id, goal, status, placement_result, generated_roadmap_id
+
+diagnostic_items
+  id, session_id, concept_id, difficulty, response, score, reasoning_notes
+
+lessons
+  id, concept_id, title, difficulty_band, explanation, derivation, visual_asset_id
+
+textbooks
+  id, title, authors, edition, license_type, source_url
+
+textbook_chapters
+  id, textbook_id, chapter_ref, title, summary, key_concepts, formulas, common_mistakes
+
+problems
+  id, concept_id, type, difficulty, prompt, rubric, answer_key, source_type
+
+attempts
+  id, user_id, problem_id, answer, score, feedback, detected_misconceptions
+
+tutor_sessions
+  id, user_id, concept_id, mode, transcript_summary, weakness_updates
+
+content_chunks
+  id, source_type, source_id, chunk_text, embedding, metadata_json</code></pre>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="api">
+      <div class="section-head">
+        <h2>API Structure</h2>
+        <p>Keep APIs explicit and auditable. AI endpoints should return structured objects, not loose prose, whenever the frontend needs state changes.</p>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <h3>Core REST / RPC Endpoints</h3>
+          <pre><code>POST /api/diagnostics/start
+POST /api/diagnostics/:id/answer
+GET  /api/roadmaps/current
+GET  /api/concepts/:slug
+POST /api/mastery/update
+GET  /api/lessons/:conceptId
+POST /api/tutor/message
+POST /api/practice/generate
+POST /api/practice/grade
+GET  /api/simulations/:slug
+GET  /api/search?q=...</code></pre>
+        </article>
+        <article class="card">
+          <h3>AI Tool Contracts</h3>
+          <pre><code>select_next_diagnostic_item(profile, mastery_state)
+generate_roadmap(goal, concept_graph, available_hours)
+tutor_reply(message, retrieved_context, learner_state)
+generate_problem(concept, difficulty, problem_type)
+grade_solution(problem, rubric, answer)
+detect_misconception(answer, concept)
+summarize_chapter(chapter_chunks, concept_schema)</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ai-architecture">
+      <div class="section-head">
+        <h2>AI Architecture</h2>
+        <p>The tutor should not be one giant prompt. It should be a controlled learning system with retrieval, tools, structured outputs, and evaluation.</p>
+      </div>
+      <div class="grid three">
+        <article class="card accent-teal">
+          <h3>Planner</h3>
+          <p>Chooses next lesson, review item, simulation, or problem based on mastery, uncertainty, and goal deadline.</p>
+        </article>
+        <article class="card accent-gold">
+          <h3>Retriever</h3>
+          <p>Finds concepts, formulas, textbook summaries, prior mistakes, and similar worked examples.</p>
+        </article>
+        <article class="card accent-violet">
+          <h3>Tutor</h3>
+          <p>Uses Socratic questioning by default, escalates hints gradually, and only gives full solutions after effort.</p>
+        </article>
+        <article class="card accent-blue">
+          <h3>Problem Generator</h3>
+          <p>Creates adaptive conceptual, computational, derivation, exam, and challenge problems with rubrics.</p>
+        </article>
+        <article class="card accent-green">
+          <h3>Evaluator</h3>
+          <p>Grades solutions, checks derivation validity, detects misconceptions, and updates mastery records.</p>
+        </article>
+        <article class="card accent-red">
+          <h3>Safety and Quality Layer</h3>
+          <p>Validates math, citations, difficulty, solution correctness, and whether the tutor gave away too much too soon.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="scale">
+      <div class="section-head">
+        <h2>Scalability Strategy</h2>
+        <p>Begin simple, then separate hot paths. The expensive work is AI generation, simulation compute, embeddings, and grading.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stage</th><th>Architecture</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>MVP</td><td>Next.js app, PostgreSQL + pgvector, Redis queue, object storage.</td><td>Fastest path to a real product with authentication, learning state, and AI features.</td></tr>
+            <tr><td>Growth</td><td>Separate AI orchestration service, content ingestion worker, analytics pipeline.</td><td>Isolates slow background work from lesson interactions.</td></tr>
+            <tr><td>Institution</td><td>Multi-tenant org model, SSO, LMS integrations, dedicated vector indexes per licensed corpus.</td><td>Supports schools, cohorts, privacy, and reporting.</td></tr>
+            <tr><td>Research Scale</td><td>GPU simulation workers, notebook execution sandboxes, paper ingestion, graph analytics.</td><td>Supports advanced computation and research-mode exploration.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="auth">
+      <div class="section-head">
+        <h2>Authentication and Roles</h2>
+        <p>Authentication must support individual learners first, then teams and institutions.</p>
+      </div>
+      <div class="grid three">
+        <article class="card"><h3>Learner</h3><p>Personal roadmap, mastery, tutor memory, exams, certificates, notes, and simulation history.</p></article>
+        <article class="card"><h3>Instructor</h3><p>Cohort dashboard, assigned roadmaps, custom problem sets, grading review, and concept analytics.</p></article>
+        <article class="card"><h3>Institution Admin</h3><p>Licensing, SSO, seat management, privacy settings, reporting, and LMS export.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Implementation preference: ship as a modular monolith first, with clean service boundaries inside the codebase.
+  </footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

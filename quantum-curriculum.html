@@ -1,0 +1,2455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quantum Physics Pre-Master Study Hub</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #151821;
+      --muted: #596172;
+      --paper: #fffaf1;
+      --surface: #ffffff;
+      --line: #d9d1bf;
+      --teal: #007f7a;
+      --teal-dark: #075c5a;
+      --coral: #da5b4a;
+      --amber: #d89b19;
+      --violet: #5946a8;
+      --green: #28794f;
+      --red: #b23b35;
+      --shadow: 0 18px 45px rgba(21, 24, 33, .12);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0, 127, 122, .16), transparent 34rem),
+        linear-gradient(135deg, #fffaf1 0%, #f4f8f7 45%, #fff3ed 100%);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    a { color: var(--teal-dark); font-weight: 760; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+      gap: 48px;
+      align-items: center;
+      padding: 42px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 11px;
+      border: 1px solid rgba(0, 127, 122, .28);
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: rgba(255, 255, 255, .62);
+      font-size: .88rem;
+      font-weight: 820;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.1rem, 7.6vw, 7.2rem);
+      line-height: .88;
+      letter-spacing: 0;
+      max-width: 890px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4.1vw, 4.1rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.28rem;
+      line-height: 1.2;
+    }
+
+    h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .hero p {
+      max-width: 790px;
+      color: #343a47;
+      font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+      margin: 0 0 26px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .button, .utility-button, .book-card, .close-button {
+      font: inherit;
+    }
+
+    .button {
+      border: 0;
+      border-radius: var(--radius);
+      padding: 13px 17px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 850;
+      box-shadow: 0 10px 22px rgba(21, 24, 33, .18);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .button.secondary, .utility-button {
+      background: rgba(255, 255, 255, .82);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .button:hover, .utility-button:hover, .book-card:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .utility-button {
+      border-radius: var(--radius);
+      min-height: 40px;
+      padding: 9px 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .hero-tools {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat, .card, .phase, .formula, .book-card, .quiz-panel, .topic-module, .bridge-card, .test-card, .resource-card, .day {
+      background: rgba(255, 255, 255, .84);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .stat {
+      padding: 16px;
+      min-height: 112px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(1.35rem, 2.8vw, 2.35rem);
+      line-height: 1;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(21, 24, 33, .9), rgba(7, 92, 90, .76)),
+        url("https://upload.wikimedia.org/wikipedia/commons/e/e7/Hydrogen_Density_Plots.png");
+      background-size: cover;
+      background-position: center;
+      box-shadow: var(--shadow);
+    }
+
+    .visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, .12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .12) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), transparent 86%);
+    }
+
+    .equation-strip {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: rgba(255, 250, 241, .91);
+      border-radius: var(--radius);
+      color: var(--ink);
+    }
+
+    .equation-strip strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--coral);
+      font-size: .88rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      padding-bottom: 56px;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 16px;
+      padding: 16px;
+      background: rgba(255, 255, 255, .84);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(21, 24, 33, .08);
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+    }
+
+    .side-nav strong {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .side-nav a {
+      display: block;
+      padding: 8px 9px;
+      color: #2e3440;
+      border-radius: var(--radius);
+      font-size: .95rem;
+    }
+
+    .side-nav a:hover {
+      background: #f4efe4;
+      text-decoration: none;
+    }
+
+    .section {
+      padding: 56px 0;
+      border-top: 1px solid rgba(89, 97, 114, .18);
+      scroll-margin-top: 16px;
+    }
+
+    .section:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(260px, .42fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section-head p, .small-note {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .progress-card {
+      padding: 18px;
+      background: rgba(21, 24, 33, .94);
+      color: #fff;
+      border-radius: var(--radius);
+      display: grid;
+      gap: 14px;
+    }
+
+    .progress-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, .76);
+    }
+
+    .progress-card strong { color: #fff; }
+
+    .progressbar {
+      height: 14px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .progressfill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--teal), var(--amber), var(--coral));
+      transition: width .22s ease;
+    }
+
+    .bridge-grid, .library-grid, .formula-grid, .resource-grid, .routine, .test-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bridge-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .bridge-card, .test-card, .day {
+      padding: 17px;
+    }
+
+    .bridge-card p, .test-card p, .day p {
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .rail {
+      position: relative;
+    }
+
+    .rail::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      background: linear-gradient(var(--teal), var(--amber), var(--coral), var(--violet));
+      border-radius: 999px;
+    }
+
+    .phase-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .phase {
+      position: relative;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, .42fr);
+      gap: 20px;
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      left: -48px;
+      top: 28px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 5px solid var(--teal);
+      box-shadow: 0 0 0 4px var(--paper);
+    }
+
+    .phase:nth-child(2)::before { border-color: var(--amber); }
+    .phase:nth-child(3)::before { border-color: var(--coral); }
+    .phase:nth-child(4)::before { border-color: var(--violet); }
+    .phase:nth-child(5)::before { border-color: var(--green); }
+    .phase:nth-child(6)::before { border-color: var(--red); }
+
+    .phase-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #f0eee4;
+      color: #343a47;
+      font-weight: 760;
+      font-size: .84rem;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist label, label.check {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      color: #2e3440;
+    }
+
+    label.check {
+      padding: 8px 9px;
+      background: rgba(255, 255, 255, .62);
+      border: 1px solid #e7dfd0;
+      border-radius: var(--radius);
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--teal);
+      margin-top: 3px;
+    }
+
+    .phase-aside {
+      border-left: 1px solid var(--line);
+      padding-left: 18px;
+    }
+
+    .phase-aside p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topic-stack, .roadmap, .test-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .topic-module {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .topic-module summary {
+      cursor: pointer;
+      padding: 18px;
+      list-style: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      font-weight: 880;
+      color: var(--ink);
+    }
+
+    .topic-module summary::-webkit-details-marker { display: none; }
+    .topic-module summary::after {
+      content: "+";
+      font-size: 1.4rem;
+      color: var(--teal-dark);
+    }
+    .topic-module[open] summary::after { content: "-"; }
+
+    .module-body {
+      padding: 0 18px 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini {
+      border: 1px solid #e4ddcf;
+      border-radius: var(--radius);
+      padding: 14px;
+      background: rgba(255, 255, 255, .68);
+    }
+
+    .mini p, .mini li {
+      color: var(--muted);
+    }
+
+    .mini ul, .chapter ul, .modal-section ul, .test-card ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .mini li + li, .chapter li + li, .modal-section li + li, .test-card li + li {
+      margin-top: 6px;
+    }
+
+    .math, .formula-box {
+      overflow-x: auto;
+      padding: 12px;
+      background: #f8f3e8;
+      border: 1px solid #e6dcc8;
+      border-radius: var(--radius);
+      min-height: 52px;
+    }
+
+    .library-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .library-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .library-group {
+      margin-top: 24px;
+    }
+
+    .library-group:first-child { margin-top: 0; }
+
+    .library-group h3 {
+      margin-bottom: 12px;
+    }
+
+    .book-card {
+      width: 100%;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      gap: 8px;
+      min-height: 198px;
+      background: rgba(255, 255, 255, .88);
+      color: var(--ink);
+    }
+
+    .book-card span {
+      color: var(--coral);
+      font-size: .8rem;
+      font-weight: 880;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .book-card strong {
+      font-size: 1.04rem;
+      line-height: 1.22;
+    }
+
+    .book-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .book-card em {
+      align-self: end;
+      color: var(--teal-dark);
+      font-style: normal;
+      font-weight: 850;
+    }
+
+    .roadmap-block {
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .roadmap-title {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      background: rgba(21, 24, 33, .93);
+      color: #fff;
+    }
+
+    .roadmap-title h3 {
+      color: #fff;
+      margin: 0;
+    }
+
+    .roadmap-title span {
+      color: rgba(255, 255, 255, .75);
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .chapter {
+      padding: 18px;
+      background: rgba(255, 255, 255, .94);
+      min-width: 0;
+    }
+
+    .chapter p {
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .formula-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .formula {
+      padding: 18px;
+      min-width: 0;
+    }
+
+    .formula strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .formula p {
+      margin: 12px 0 0;
+      color: var(--muted);
+    }
+
+    .quiz-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .quiz-panel {
+      padding: 18px;
+      position: sticky;
+      top: 16px;
+    }
+
+    .quiz-question {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .quiz-question:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .quiz-question p {
+      margin: 0 0 10px;
+      font-weight: 830;
+    }
+
+    .choices {
+      display: grid;
+      gap: 8px;
+    }
+
+    .choices label {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      padding: 9px;
+      border: 1px solid #e4ddcf;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .68);
+      cursor: pointer;
+    }
+
+    .quiz-result {
+      margin-top: 16px;
+      padding: 13px;
+      border-radius: var(--radius);
+      background: #eaf6f1;
+      border: 1px solid rgba(40, 121, 79, .25);
+      color: #175134;
+      font-weight: 850;
+      min-height: 48px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      padding: 10px;
+      border-radius: var(--radius);
+      border: 1px solid #d8cfbd;
+      background: #fffdf8;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .test-card details {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid #e4ddcf;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .68);
+    }
+
+    .test-card summary {
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .resource-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resource-card {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 13px;
+      align-items: start;
+      padding: 16px;
+      background: rgba(255,255,255,.82);
+    }
+
+    .badge {
+      width: 46px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .resource-card:nth-child(2n) .badge { background: var(--teal); }
+    .resource-card:nth-child(3n) .badge { background: var(--coral); }
+    .resource-card:nth-child(4n) .badge { background: var(--violet); }
+
+    .resource-card h3 {
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+
+    .resource-card p {
+      margin: 0 0 8px;
+      color: var(--muted);
+    }
+
+    .routine {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .day {
+      background: rgba(21, 24, 33, .92);
+      color: #fff;
+      min-height: 170px;
+    }
+
+    .day h3 { color: #fff; }
+    .day p { color: rgba(255,255,255,.76); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(21, 24, 33, .56);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal[aria-hidden="false"] { display: flex; }
+
+    .modal-dialog {
+      width: min(880px, 100%);
+      max-height: min(86vh, 900px);
+      overflow: auto;
+      background: #fffdf8;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 30px 80px rgba(21, 24, 33, .28);
+    }
+
+    .modal-head {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      padding: 18px;
+      background: rgba(255, 253, 248, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .close-button {
+      width: 42px;
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .modal-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .modal-section {
+      padding: 14px;
+      border: 1px solid #e4ddcf;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .72);
+    }
+
+    .modal-section p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 42px 0 56px;
+      color: var(--muted);
+      border-top: 1px solid rgba(89, 97, 114, .18);
+    }
+
+    @media (max-width: 980px) {
+      .hero, .shell, .section-head, .phase, .quiz-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 28px;
+      }
+
+      .side-nav {
+        position: relative;
+        top: 0;
+        max-height: none;
+      }
+
+      .visual { min-height: 390px; }
+
+      .stats, .bridge-grid, .library-grid, .formula-grid, .routine {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .module-grid, .chapter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phase-aside {
+        border-left: 0;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        padding-top: 16px;
+      }
+
+      .quiz-panel { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .page { width: min(100% - 22px, 1220px); }
+      .stats, .bridge-grid, .library-grid, .formula-grid, .resource-grid, .routine, .test-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .rail { display: none; }
+      .phase::before { display: none; }
+      .section { padding: 42px 0; }
+      .visual { min-height: 320px; }
+      .equation-strip { left: 12px; right: 12px; bottom: 12px; padding: 14px; }
+      .roadmap-title { grid-template-columns: 1fr; }
+      .roadmap-title span { white-space: normal; }
+      .modal { padding: 10px; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .visual, .side-nav, .hero-tools, .actions, .modal, .button, .utility-button { display: none !important; }
+      .hero { min-height: 0; display: block; }
+      .shell { display: block; }
+      .section, footer { border-top: 1px solid #bbb; }
+      .stat, .card, .phase, .formula, .book-card, .quiz-panel, .topic-module, .bridge-card, .test-card, .resource-card, .day, .roadmap-block {
+        box-shadow: none;
+        background: #fff;
+        border-color: #bbb;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page hero" id="top">
+    <div>
+      <span class="eyebrow">Pre-master bridge for a business background</span>
+      <h1>Quantum Physics Study Hub</h1>
+      <p>A complete self-study curriculum from algebra and calculus through bachelor-level physics, mathematical methods, and university quantum mechanics. This is built to be studied from, checked off, tested, and revisited.</p>
+      <div class="actions">
+        <a class="button" href="#progress">Start Studying</a>
+        <a class="button secondary" href="#library">Open Study Library</a>
+        <a class="button secondary" href="#modules">Topic Lessons</a>
+        <a class="button secondary" href="#tests">Tests</a>
+      </div>
+      <div class="hero-tools">
+        <button class="utility-button" type="button" id="printPage">Print / Save PDF</button>
+        <button class="utility-button" type="button" id="resetProgress">Reset Progress</button>
+        <button class="utility-button" type="button" id="expandAll">Expand All</button>
+        <button class="utility-button" type="button" id="collapseAll">Collapse All</button>
+      </div>
+      <div class="stats" aria-label="Curriculum summary">
+        <div class="stat"><span>Total path</span><strong>18-36 mo</strong></div>
+        <div class="stat"><span>Minimum</span><strong>8-12 h/wk</strong></div>
+        <div class="stat"><span>Rule</span><strong>Problems</strong></div>
+        <div class="stat"><span>Target</span><strong>Pre-master</strong></div>
+      </div>
+    </div>
+    <div class="visual" aria-label="Hydrogen orbital visual">
+      <div class="equation-strip">
+        <strong>The destination</strong>
+        \( i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi \)
+      </div>
+    </div>
+  </header>
+
+  <div class="page shell">
+    <nav class="side-nav" aria-label="Study navigation">
+      <strong>Navigation</strong>
+      <a href="#progress">Progress Dashboard</a>
+      <a href="#bridge">Business to Physics Bridge</a>
+      <a href="#timeline">Curriculum Timeline</a>
+      <a href="#modules">Topic Lessons</a>
+      <a href="#library">Study Library</a>
+      <a href="#chapter-roadmap">Chapter Roadmap</a>
+      <a href="#formulas">Formula Map</a>
+      <a href="#quiz">Readiness Quiz</a>
+      <a href="#tests">Custom Tests</a>
+      <a href="#resources">Exams and Problem Sets</a>
+      <a href="#routine">Weekly Routine</a>
+    </nav>
+
+    <main>
+      <section class="section" id="progress">
+        <div class="section-head">
+          <h2>Progress Dashboard</h2>
+          <p>Only tick a topic after you have solved problems. Watching a video is exposure; solving is learning.</p>
+        </div>
+        <div class="progress-card">
+          <p><strong id="taskDone">0</strong> of <strong id="taskTotal">0</strong> study tasks completed.</p>
+          <div class="progressbar" aria-label="Study progress"><div class="progressfill" id="progressFill"></div></div>
+          <p id="progressMessage">Start with baseline math, then build upward in order.</p>
+        </div>
+      </section>
+
+      <section class="section" id="bridge">
+        <div class="section-head">
+          <h2>Business to Physics Bridge</h2>
+          <p>Your business degree is not a weakness. It gives you planning discipline. What needs rebuilding is the technical language physics uses.</p>
+        </div>
+        <div class="bridge-grid">
+          <article class="bridge-card">
+            <h3>Math Fluency</h3>
+            <p>You need algebra, calculus, linear algebra, and differential equations to feel automatic enough that physics can sit on top.</p>
+          </article>
+          <article class="bridge-card">
+            <h3>Symbolic Reasoning</h3>
+            <p>Physics asks you to move between words, diagrams, equations, graphs, units, and assumptions without losing the thread.</p>
+          </article>
+          <article class="bridge-card">
+            <h3>Problem Stamina</h3>
+            <p>Real progress comes from difficult problems, failed attempts, corrections, and repeat exposure to the same structures.</p>
+          </article>
+          <article class="bridge-card">
+            <h3>Physical Intuition</h3>
+            <p>Before quantum mechanics, you need to understand energy, momentum, oscillations, waves, fields, and boundary conditions.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="timeline">
+        <div class="section-head">
+          <h2>Curriculum Timeline</h2>
+          <p>Use this as the order of attack. The topic lessons below explain what to learn inside each phase.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="rail" aria-hidden="true"></div>
+          <div class="phase-list">
+            <article class="phase">
+              <div>
+                <h3>Phase 0: Baseline Reset</h3>
+                <div class="phase-meta">
+                  <span class="tag">2-4 weeks</span>
+                  <span class="tag">Foundation repair</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase0-equations">Equations, inequalities, graphs, functions, exponents, logarithms</label></li>
+                  <li><label><input type="checkbox" data-task="phase0-trig">Trigonometry, radians, unit circle, identities, graph transformations</label></li>
+                  <li><label><input type="checkbox" data-task="phase0-study-routine">Notebook, formula sheet, error log, weekly problem routine</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: Khan Academy algebra/trig exercises should feel workable without constant hints.</p>
+                <ul class="link-list">
+                  <li><a href="https://www.khanacademy.org/math/algebra" target="_blank" rel="noreferrer">Khan Academy Algebra</a></li>
+                  <li><a href="https://www.khanacademy.org/math/trigonometry" target="_blank" rel="noreferrer">Khan Academy Trigonometry</a></li>
+                </ul>
+              </aside>
+            </article>
+
+            <article class="phase">
+              <div>
+                <h3>Phase 1: Core Mathematics</h3>
+                <div class="phase-meta">
+                  <span class="tag">6-10 months</span>
+                  <span class="tag">Non-negotiable</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase1-calculus">Single and multivariable calculus</label></li>
+                  <li><label><input type="checkbox" data-task="phase1-linear">Linear algebra and eigenvectors</label></li>
+                  <li><label><input type="checkbox" data-task="phase1-de">Differential equations and Fourier basics</label></li>
+                  <li><label><input type="checkbox" data-task="phase1-prob-complex">Probability, statistics, and complex numbers</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: pass MIT-style calculus, linear algebra, and differential equation exams open-book first, then timed.</p>
+                <ul class="link-list">
+                  <li><a href="https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/" target="_blank" rel="noreferrer">MIT 18.01SC Calculus</a></li>
+                  <li><a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank" rel="noreferrer">MIT 18.06 Linear Algebra</a></li>
+                  <li><a href="https://ocw.mit.edu/courses/18-03-differential-equations-spring-2010/" target="_blank" rel="noreferrer">MIT 18.03 Differential Equations</a></li>
+                </ul>
+              </aside>
+            </article>
+
+            <article class="phase">
+              <div>
+                <h3>Phase 2: Classical Physics</h3>
+                <div class="phase-meta">
+                  <span class="tag">6-9 months</span>
+                  <span class="tag">Physics base</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase2-mechanics">Mechanics, energy, momentum, rotation, oscillations</label></li>
+                  <li><label><input type="checkbox" data-task="phase2-em">Electricity, magnetism, fields, potentials, Maxwell basics</label></li>
+                  <li><label><input type="checkbox" data-task="phase2-waves-thermo">Waves, interference, thermodynamics, statistical intuition</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: derive equations of motion and solve multi-step physics problems, not just identify formulas.</p>
+                <ul class="link-list">
+                  <li><a href="https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/" target="_blank" rel="noreferrer">MIT 8.01SC Classical Mechanics</a></li>
+                  <li><a href="https://ocw.mit.edu/courses/8-02sc-physics-ii-electricity-and-magnetism-fall-2010/" target="_blank" rel="noreferrer">MIT 8.02SC E&amp;M</a></li>
+                  <li><a href="https://ocw.mit.edu/courses/8-03sc-physics-iii-vibrations-and-waves-fall-2016/" target="_blank" rel="noreferrer">MIT 8.03SC Waves</a></li>
+                </ul>
+              </aside>
+            </article>
+
+            <article class="phase">
+              <div>
+                <h3>Phase 3: Mathematical Physics</h3>
+                <div class="phase-meta">
+                  <span class="tag">3-6 months</span>
+                  <span class="tag">Bridge layer</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase3-dirac">Dirac notation, inner products, operators, commutators</label></li>
+                  <li><label><input type="checkbox" data-task="phase3-fourier">Fourier transforms, delta functions, separation of variables</label></li>
+                  <li><label><input type="checkbox" data-task="phase3-hermitian">Hermitian operators and eigenfunction expansions</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: move comfortably between matrix, function, and bra-ket notation.</p>
+                <ul class="link-list">
+                  <li><a href="https://www.youtube.com/@3blue1brown" target="_blank" rel="noreferrer">3Blue1Brown Fourier intuition</a></li>
+                  <li><a href="https://www.youtube.com/@Eigenchris" target="_blank" rel="noreferrer">Eigenchris math physics</a></li>
+                </ul>
+              </aside>
+            </article>
+
+            <article class="phase">
+              <div>
+                <h3>Phase 4: Modern Physics</h3>
+                <div class="phase-meta">
+                  <span class="tag">3-5 months</span>
+                  <span class="tag">Relativity and atoms</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase4-relativity">Special relativity, spacetime, Lorentz transformations</label></li>
+                  <li><label><input type="checkbox" data-task="phase4-atomic">Blackbody radiation, photoelectric effect, de Broglie waves, spectra</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: explain why classical physics fails at atomic scales.</p>
+                <ul class="link-list">
+                  <li><a href="https://ocw.mit.edu/courses/8-033-relativity-fall-2006/" target="_blank" rel="noreferrer">MIT 8.033 Relativity</a></li>
+                  <li><a href="https://www.khanacademy.org/science/physics/special-relativity" target="_blank" rel="noreferrer">Khan Academy Relativity</a></li>
+                </ul>
+              </aside>
+            </article>
+
+            <article class="phase">
+              <div>
+                <h3>Phase 5: Quantum Mechanics</h3>
+                <div class="phase-meta">
+                  <span class="tag">8-12 months</span>
+                  <span class="tag">University level</span>
+                </div>
+                <ul class="checklist">
+                  <li><label><input type="checkbox" data-task="phase5-qm1">Wavefunctions, normalization, Schrödinger equation, wells, tunneling</label></li>
+                  <li><label><input type="checkbox" data-task="phase5-formalism">Operators, observables, uncertainty, spin, angular momentum</label></li>
+                  <li><label><input type="checkbox" data-task="phase5-qm2">Hydrogen atom, perturbation theory, identical particles, scattering</label></li>
+                </ul>
+              </div>
+              <aside class="phase-aside">
+                <p>Checkpoint: solve MIT 8.04 exams and work Griffiths problems without copying solutions.</p>
+                <ul class="link-list">
+                  <li><a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/exams/" target="_blank" rel="noreferrer">MIT 8.04 Exams</a></li>
+                  <li><a href="https://ocw.mit.edu/courses/8-05-quantum-physics-ii-fall-2013/" target="_blank" rel="noreferrer">MIT 8.05 Quantum Physics II</a></li>
+                </ul>
+              </aside>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modules">
+        <div class="section-head">
+          <h2>Topic Lessons</h2>
+          <p>Each module gives you the lesson content: what to learn, why it matters, formulas, problem skills, resources, and a checkpoint.</p>
+        </div>
+
+        <div class="topic-stack">
+          <details class="topic-module" open>
+            <summary>Phase 0: Algebra, Functions, Graphs, and Trigonometry <span class="tag">2-4 weeks</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Solve linear, quadratic, exponential, and logarithmic equations.</li>
+                    <li>Use functions: domain, range, inverse, composition, transformations.</li>
+                    <li>Use radians, unit circle, sine, cosine, tangent, and core trig identities.</li>
+                    <li>Read and sketch graphs without treating them like decoration.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters for quantum physics</h4>
+                  <p>Quantum mechanics uses exponentials, sinusoidal waves, boundary conditions, graphs of probability densities, and symbolic manipulation constantly.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( \sin^2\theta+\cos^2\theta=1 \)</div>
+                  <div class="formula-box">\( e^{a+b}=e^ae^b,\quad \log(ab)=\log a+\log b \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <ul>
+                    <li>Complete Khan Academy Algebra 2 and Trigonometry practice.</li>
+                    <li>Be able to transform \(y=A\sin(kx+\phi)\) and explain amplitude, frequency, and phase.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-algebra-equations">I can solve equations and inequalities without guessing.</label>
+                <label class="check"><input type="checkbox" data-task="module-algebra-functions">I can translate word descriptions into functions and graphs.</label>
+                <label class="check"><input type="checkbox" data-task="module-algebra-trig">I can use trig identities and radians fluently.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 1A: Calculus I, II, and III <span class="tag">Core math</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Limits, continuity, derivatives, chain rule, optimization, related rates.</li>
+                    <li>Definite and indefinite integrals, substitution, integration by parts, improper integrals.</li>
+                    <li>Series, Taylor expansions, partial derivatives, gradients, multiple integrals.</li>
+                    <li>Vector calculus basics: divergence, curl, line integrals, surface integrals.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>Derivatives describe change; integrals describe totals and probability; multivariable calculus gives you fields, potentials, and wavefunctions in space.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( \frac{d}{dx}x^n=nx^{n-1} \)</div>
+                  <div class="formula-box">\( \int_a^b f(x)\,dx=F(b)-F(a) \)</div>
+                  <div class="formula-box">\( \nabla f=(\partial_x f,\partial_y f,\partial_z f) \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Problem skills</h4>
+                  <ul>
+                    <li>Differentiate and integrate by hand without checking every line.</li>
+                    <li>Set up integrals from geometry or physical meaning.</li>
+                    <li>Use spherical/cylindrical coordinates when symmetry demands it.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-calc-derivatives">I can solve derivative problems and interpret the result physically.</label>
+                <label class="check"><input type="checkbox" data-task="module-calc-integrals">I can set up and compute integrals for area, work, charge, and probability.</label>
+                <label class="check"><input type="checkbox" data-task="module-calc-multi">I can use partial derivatives, gradients, and multiple integrals.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 1B: Linear Algebra <span class="tag">Quantum language</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Vectors, matrices, matrix multiplication, Gaussian elimination.</li>
+                    <li>Span, basis, dimension, linear independence, vector spaces.</li>
+                    <li>Orthogonality, projections, inner products, complex vector spaces.</li>
+                    <li>Eigenvalues, eigenvectors, diagonalization, Hermitian and unitary matrices.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>Quantum states are vectors. Observables are operators. Measurement outcomes are tied to eigenvalues. This subject is the grammar of quantum theory.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( A\vec v=\lambda\vec v \)</div>
+                  <div class="formula-box">\( \langle u,v\rangle=u^\dagger v \)</div>
+                  <div class="formula-box">\( A^\dagger=A \quad \text{for Hermitian operators} \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <p>Pass MIT 18.06 exams on eigenvalues/eigenvectors and explain why diagonalization simplifies a physical problem.</p>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-linear-systems">I can solve matrix systems and understand matrix transformations.</label>
+                <label class="check"><input type="checkbox" data-task="module-linear-eigen">I can find eigenvalues/eigenvectors and explain their meaning.</label>
+                <label class="check"><input type="checkbox" data-task="module-linear-hermitian">I understand Hermitian/unitary matrices at a usable level.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 1C: Differential Equations, Probability, and Complex Numbers <span class="tag">Physics engine</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>First-order separable and linear ODEs.</li>
+                    <li>Second-order constant-coefficient ODEs and harmonic oscillators.</li>
+                    <li>Fourier series basics and separation of variables.</li>
+                    <li>Probability distributions, expectation values, variance, complex exponentials.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>Schrödinger equations are differential equations. Wavefunctions are complex-valued. Quantum predictions are probability distributions.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( \frac{d^2x}{dt^2}+\omega^2x=0 \)</div>
+                  <div class="formula-box">\( e^{i\theta}=\cos\theta+i\sin\theta \)</div>
+                  <div class="formula-box">\( E[X]=\sum_x x\,p(x) \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <p>Solve oscillator equations, use Euler's formula, and compute expectation values before starting serious QM.</p>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-de-ode">I can solve basic first- and second-order ODEs.</label>
+                <label class="check"><input type="checkbox" data-task="module-de-fourier">I understand Fourier modes and separation of variables.</label>
+                <label class="check"><input type="checkbox" data-task="module-de-prob">I can use complex numbers and probability distributions confidently.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 2: Mechanics, E&amp;M, Waves, and Thermodynamics <span class="tag">Classical physics</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Kinematics, Newton's laws, free-body diagrams, energy, momentum, rotation.</li>
+                    <li>Electric fields, magnetic fields, potentials, circuits, Maxwell's equations conceptually.</li>
+                    <li>Simple harmonic motion, driven/damped oscillators, wave equation, interference.</li>
+                    <li>Temperature, heat, entropy, Boltzmann distribution intuition.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>Quantum mechanics was built by fixing failures in classical mechanics, waves, and electromagnetism. You need to know what it is replacing.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( \vec F=m\vec a,\quad K=\frac12mv^2,\quad \vec L=\vec r\times\vec p \)</div>
+                  <div class="formula-box">\( \vec F=q(\vec E+\vec v\times\vec B) \)</div>
+                  <div class="formula-box">\( \frac{\partial^2 y}{\partial t^2}=v^2\frac{\partial^2 y}{\partial x^2} \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <p>Work through MIT 8.01, 8.02, and 8.03 exam problems. You should be deriving, not hunting formulas.</p>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-physics-mechanics">I can solve mechanics problems with forces, energy, and momentum.</label>
+                <label class="check"><input type="checkbox" data-task="module-physics-em">I understand fields, potentials, and Maxwell-level ideas.</label>
+                <label class="check"><input type="checkbox" data-task="module-physics-waves">I can solve oscillation and wave problems with boundary conditions.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 3 and 4: Math Physics and Modern Physics <span class="tag">Bridge to QM</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Dirac notation, bras, kets, inner products, operators, commutators.</li>
+                    <li>Fourier transforms, delta functions, Hermitian operators, eigenfunction expansions.</li>
+                    <li>Special relativity, Lorentz transformations, relativistic energy and momentum.</li>
+                    <li>Blackbody radiation, photoelectric effect, de Broglie wavelength, Bohr model.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>This layer gives you the language and historical pressure that make quantum mechanics feel necessary instead of arbitrary.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( [A,B]=AB-BA \)</div>
+                  <div class="formula-box">\( \langle \psi|\phi\rangle=\int \psi^*(x)\phi(x)\,dx \)</div>
+                  <div class="formula-box">\( E^2=(pc)^2+(mc^2)^2,\quad \lambda=\frac{h}{p} \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <p>Explain what an operator is, what a commutator means, and why matter waves forced a new theory.</p>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-bridge-dirac">I can read basic Dirac notation and operator equations.</label>
+                <label class="check"><input type="checkbox" data-task="module-bridge-fourier">I understand Fourier transforms as wave decompositions.</label>
+                <label class="check"><input type="checkbox" data-task="module-bridge-modern">I understand relativity and early quantum experiments at a problem-solving level.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 5: Quantum Mechanics I and II <span class="tag">Main target</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>What to learn</h4>
+                  <ul>
+                    <li>Wavefunction interpretation, normalization, expectation values.</li>
+                    <li>Time-dependent and time-independent Schrödinger equations.</li>
+                    <li>Infinite wells, finite wells, tunneling, harmonic oscillator.</li>
+                    <li>Formalism: Hilbert spaces, observables, commutators, uncertainty.</li>
+                    <li>Angular momentum, spin, hydrogen atom, approximation methods, scattering.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Why it matters</h4>
+                  <p>This is the core of university quantum physics. It turns physical questions into eigenvalue problems and probability amplitudes.</p>
+                </div>
+                <div class="mini">
+                  <h4>Main formulas</h4>
+                  <div class="formula-box">\( i\hbar\frac{\partial}{\partial t}\Psi=\hat H\Psi \)</div>
+                  <div class="formula-box">\( \hat H\psi=E\psi \)</div>
+                  <div class="formula-box">\( \Delta x\,\Delta p\ge \frac{\hbar}{2} \)</div>
+                </div>
+                <div class="mini">
+                  <h4>Checkpoint</h4>
+                  <p>Derive particle-in-a-box states, compute expectation values, solve standard wells, and take MIT 8.04 exams.</p>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-qm-wavefunction">I can normalize wavefunctions and compute probabilities.</label>
+                <label class="check"><input type="checkbox" data-task="module-qm-systems">I can solve standard one-dimensional quantum systems.</label>
+                <label class="check"><input type="checkbox" data-task="module-qm-formalism">I understand operators, spin, angular momentum, and uncertainty.</label>
+                <label class="check"><input type="checkbox" data-task="module-qm-advanced">I can begin hydrogen, perturbation theory, identical particles, and scattering.</label>
+              </div>
+            </div>
+          </details>
+
+          <details class="topic-module">
+            <summary>Phase 6: Specializations After Quantum I <span class="tag">Optional direction</span></summary>
+            <div class="module-body">
+              <div class="module-grid">
+                <div class="mini">
+                  <h4>Quantum Computing</h4>
+                  <ul>
+                    <li>Qubits, Bloch sphere, gates, tensor products, entanglement.</li>
+                    <li>Use IBM Quantum Learning and Nielsen &amp; Chuang Ch. 1-4.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Quantum Field Theory</h4>
+                  <ul>
+                    <li>Relativistic quantum mechanics, fields, creation/annihilation operators, Feynman diagrams.</li>
+                    <li>Use Lancaster &amp; Blundell before Peskin &amp; Schroeder.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Condensed Matter</h4>
+                  <ul>
+                    <li>Crystal lattices, reciprocal space, phonons, electrons in solids, superconductivity.</li>
+                    <li>Use Kittel first, Ashcroft &amp; Mermin later.</li>
+                  </ul>
+                </div>
+                <div class="mini">
+                  <h4>Computational Physics</h4>
+                  <ul>
+                    <li>Python, NumPy, SciPy, numerical integration, ODEs, eigenvalue simulations.</li>
+                    <li>Build particle-in-a-box, tunneling, oscillator, and spin mini-projects.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="checklist">
+                <label class="check"><input type="checkbox" data-task="module-spec-qc">I understand the quantum computing roadmap.</label>
+                <label class="check"><input type="checkbox" data-task="module-spec-qft">I understand the QFT prerequisites.</label>
+                <label class="check"><input type="checkbox" data-task="module-spec-condensed">I understand the condensed matter path.</label>
+                <label class="check"><input type="checkbox" data-task="module-spec-computation">I can use computation to support physics learning.</label>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="library">
+        <div class="section-head">
+          <h2>Study Library</h2>
+          <p>Click any book or course. Each popup tells you what it is for, when to use it, what to study, main points, skills, and checkpoints.</p>
+        </div>
+        <div class="library-controls" aria-label="Study library filters">
+          <button class="utility-button" type="button" data-filter="all">All</button>
+          <button class="utility-button" type="button" data-filter="Foundation math">Foundation math</button>
+          <button class="utility-button" type="button" data-filter="University math">University math</button>
+          <button class="utility-button" type="button" data-filter="Classical physics">Classical physics</button>
+          <button class="utility-button" type="button" data-filter="Quantum mechanics">Quantum mechanics</button>
+          <button class="utility-button" type="button" data-filter="Specializations">Specializations</button>
+        </div>
+        <div id="libraryGroups"></div>
+      </section>
+
+      <section class="section" id="chapter-roadmap">
+        <div class="section-head">
+          <h2>Chapter Roadmap</h2>
+          <p>This compresses the most important chapter-level lessons. The Study Library popups add the book-specific details.</p>
+        </div>
+
+        <div class="roadmap">
+          <article class="roadmap-block">
+            <div class="roadmap-title">
+              <h3>Foundation and Calculus</h3>
+              <span>First language layer</span>
+            </div>
+            <div class="chapter-grid">
+              <section class="chapter">
+                <h4>Functions, graphs, and trigonometry</h4>
+                <p>Learn how formulas behave visually and how waves are described.</p>
+                <ul>
+                  <li>Master functions, inverse functions, exponentials, logarithms, radians, and identities.</li>
+                  <li>Be able to sketch and transform \( \sin x \), \( e^x \), \( \log x \), and polynomial graphs.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Differential and integral calculus</h4>
+                <p>Build the language of change, accumulation, work, area, and probability.</p>
+                <ul>
+                  <li>Use derivatives for rates, slopes, extrema, velocity, and acceleration.</li>
+                  <li>Use integrals for totals, normalization, expectation values, and fields.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Multivariable and vector calculus</h4>
+                <p>Prepare for fields and spatial wavefunctions.</p>
+                <ul>
+                  <li>Use partial derivatives, gradients, divergence, curl, and coordinate changes.</li>
+                  <li>Set up multiple integrals in coordinates that match symmetry.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Series and approximations</h4>
+                <p>Physics often works by approximating intelligently.</p>
+                <ul>
+                  <li>Learn Taylor series, small-angle approximations, and convergence intuition.</li>
+                  <li>Practice estimating before calculating.</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <article class="roadmap-block">
+            <div class="roadmap-title">
+              <h3>Linear Algebra, DEs, and Mathematical Physics</h3>
+              <span>Quantum grammar</span>
+            </div>
+            <div class="chapter-grid">
+              <section class="chapter">
+                <h4>Vector spaces and bases</h4>
+                <p>Understand states as objects that can be decomposed into basis components.</p>
+                <ul>
+                  <li>Use span, basis, independence, orthogonality, and projections.</li>
+                  <li>Change basis to make hard problems easier.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Eigenvalues and operators</h4>
+                <p>This is the mathematical heart of measurement in quantum mechanics.</p>
+                <ul>
+                  <li>Solve eigenvalue problems by hand and numerically.</li>
+                  <li>Connect eigenvalues to possible measured quantities.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Oscillators, Fourier, and PDEs</h4>
+                <p>Wave mechanics depends on modes and boundary conditions.</p>
+                <ul>
+                  <li>Solve oscillator equations and separate variables in simple PDEs.</li>
+                  <li>Represent functions as sums of waves.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Dirac notation and Hermitian structure</h4>
+                <p>Move from matrix calculations into the abstract language physicists use.</p>
+                <ul>
+                  <li>Use bras, kets, inner products, adjoints, commutators, and expectation values.</li>
+                  <li>Know why Hermitian operators give real measurement results.</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <article class="roadmap-block">
+            <div class="roadmap-title">
+              <h3>Classical, Modern, and Quantum Physics</h3>
+              <span>Main physics layer</span>
+            </div>
+            <div class="chapter-grid">
+              <section class="chapter">
+                <h4>Mechanics and fields</h4>
+                <p>Learn the older framework that quantum theory modifies.</p>
+                <ul>
+                  <li>Use forces, energy, momentum, angular momentum, potentials, fields, and waves.</li>
+                  <li>Understand why Lagrangians and Hamiltonians become powerful later.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Modern physics failures</h4>
+                <p>Study the experimental cracks: blackbody radiation, photoelectric effect, spectra, and matter waves.</p>
+                <ul>
+                  <li>Know the physical problem each idea solved.</li>
+                  <li>Connect \(E=hf\) and \( \lambda=h/p \) to wave-particle duality.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Quantum I</h4>
+                <p>Master wavefunctions, Schrödinger equation, bound states, tunneling, oscillator, and spin basics.</p>
+                <ul>
+                  <li>Normalize, calculate probabilities, find energies, and interpret measurements.</li>
+                  <li>Solve the infinite square well until it feels like a template.</li>
+                </ul>
+              </section>
+              <section class="chapter">
+                <h4>Quantum II</h4>
+                <p>Move into hydrogen, angular momentum addition, identical particles, perturbation, and scattering.</p>
+                <ul>
+                  <li>Use approximation methods and symmetry to solve realistic systems.</li>
+                  <li>Start reading advanced physics as model-building.</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="formulas">
+        <div class="section-head">
+          <h2>Formula Map</h2>
+          <p>Do not memorize these as isolated symbols. Know the story, assumptions, units, and one problem where each is used.</p>
+        </div>
+
+        <div class="formula-grid">
+          <article class="formula">
+            <strong>Derivative power rule</strong>
+            <div class="math">\( \frac{d}{dx}x^n = nx^{n-1} \)</div>
+            <p>Rates of change, motion, fields, and differential equations.</p>
+          </article>
+          <article class="formula">
+            <strong>Definite integral</strong>
+            <div class="math">\( \int_a^b f(x)\,dx \)</div>
+            <p>Area, work, charge, probability, expectation values, normalization.</p>
+          </article>
+          <article class="formula">
+            <strong>Eigenvalue equation</strong>
+            <div class="math">\( A\vec{v}=\lambda\vec{v} \)</div>
+            <p>The skeleton of quantum states and measured quantities.</p>
+          </article>
+          <article class="formula">
+            <strong>Classical oscillator</strong>
+            <div class="math">\( \frac{d^2x}{dt^2}+\omega^2x=0 \)</div>
+            <p>Bridge from waves and springs to the quantum harmonic oscillator.</p>
+          </article>
+          <article class="formula">
+            <strong>Relativistic energy</strong>
+            <div class="math">\( E^2=(pc)^2+(mc^2)^2 \)</div>
+            <p>Connects energy, momentum, mass, and modern physics.</p>
+          </article>
+          <article class="formula">
+            <strong>Schrödinger equation</strong>
+            <div class="math">\( i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi \)</div>
+            <p>The central evolution law of non-relativistic quantum mechanics.</p>
+          </article>
+          <article class="formula">
+            <strong>Particle in a box</strong>
+            <div class="math">\( \psi_n(x)=\sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right) \)</div>
+            <p>Boundary conditions, normalization, and quantized energy.</p>
+          </article>
+          <article class="formula">
+            <strong>Uncertainty principle</strong>
+            <div class="math">\( \Delta x\,\Delta p \ge \frac{\hbar}{2} \)</div>
+            <p>A structural statement about states, not a bad-instrument problem.</p>
+          </article>
+          <article class="formula">
+            <strong>Commutator</strong>
+            <div class="math">\( [A,B]=AB-BA \)</div>
+            <p>If operators do not commute, order matters and simultaneous certainty can fail.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="quiz">
+        <div class="section-head">
+          <h2>Readiness Quiz</h2>
+          <p>A quick diagnostic. If it feels too hard, that is useful information, not a verdict.</p>
+        </div>
+
+        <div class="quiz-layout">
+          <div class="quiz-panel">
+            <h3>Your score</h3>
+            <p class="small-note">Answer everything, then calculate. Explanations appear after scoring.</p>
+            <button class="button" id="scoreQuiz" type="button">Score Quiz</button>
+            <div class="quiz-result" id="quizResult">No score yet.</div>
+          </div>
+
+          <form id="quizForm" class="card" aria-label="Quantum readiness quiz">
+            <div class="quiz-question" data-answer="b" data-explain="Eigenvectors keep their direction under a linear transformation; this is why they become the natural language for quantum observables.">
+              <p>1. In \(A\vec{v}=\lambda\vec{v}\), what is special about \(\vec{v}\)?</p>
+              <div class="choices">
+                <label><input type="radio" name="q1" value="a">It is always perpendicular to \(A\).</label>
+                <label><input type="radio" name="q1" value="b">It keeps its direction when transformed by \(A\).</label>
+                <label><input type="radio" name="q1" value="c">It must have length one.</label>
+              </div>
+            </div>
+
+            <div class="quiz-question" data-answer="c" data-explain="Normalization means total probability equals 1, so the integral of probability density over all allowed space must be 1.">
+              <p>2. What does normalizing a wavefunction mean?</p>
+              <div class="choices">
+                <label><input type="radio" name="q2" value="a">Making its largest value equal to 1.</label>
+                <label><input type="radio" name="q2" value="b">Making it look smooth.</label>
+                <label><input type="radio" name="q2" value="c">Making total probability equal to 1.</label>
+              </div>
+            </div>
+
+            <div class="quiz-question" data-answer="a" data-explain="A second derivative measures curvature. In many physics equations, curvature is tied to acceleration, wave shape, or kinetic energy.">
+              <p>3. Why do second derivatives appear so often in physics?</p>
+              <div class="choices">
+                <label><input type="radio" name="q3" value="a">They describe curvature or acceleration-like behavior.</label>
+                <label><input type="radio" name="q3" value="b">They remove all constants from an equation.</label>
+                <label><input type="radio" name="q3" value="c">They are only used for circles.</label>
+              </div>
+            </div>
+
+            <div class="quiz-question" data-answer="b" data-explain="The Hamiltonian is the energy operator. Its eigenvalues are the allowed energies in many quantum systems.">
+              <p>4. In \(\hat{H}\Psi=E\Psi\), what does \(E\) usually represent?</p>
+              <div class="choices">
+                <label><input type="radio" name="q4" value="a">Electric field only.</label>
+                <label><input type="radio" name="q4" value="b">An allowed energy value.</label>
+                <label><input type="radio" name="q4" value="c">The speed of light.</label>
+              </div>
+            </div>
+
+            <div class="quiz-question" data-answer="c" data-explain="Boundary conditions force only certain wave shapes to fit, which leads directly to quantized energies.">
+              <p>5. Why is a particle in a box useful?</p>
+              <div class="choices">
+                <label><input type="radio" name="q5" value="a">It proves particles are literal tiny balls.</label>
+                <label><input type="radio" name="q5" value="b">It removes the need for calculus.</label>
+                <label><input type="radio" name="q5" value="c">It shows how boundary conditions quantize energy.</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" id="tests">
+        <div class="section-head">
+          <h2>Custom Written Tests</h2>
+          <p>Use these as written checkpoints. Try without notes first, then open the answer key and repair mistakes.</p>
+        </div>
+
+        <div class="test-stack">
+          <article class="test-card">
+            <h3>Math Readiness Test</h3>
+            <ol>
+              <li><p>Differentiate \(f(x)=x^3\sin x\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Compute \(\int x e^{x^2}\,dx\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Find the eigenvalues of \(\begin{bmatrix}2&amp;0\\0&amp;5\end{bmatrix}\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Solve \(d^2x/dt^2+4x=0\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Evaluate \(e^{i\pi}+1\).</p><textarea placeholder="Your answer"></textarea></li>
+            </ol>
+            <details>
+              <summary>Answers</summary>
+              <ul>
+                <li>\(3x^2\sin x+x^3\cos x\)</li>
+                <li>\(\frac12 e^{x^2}+C\)</li>
+                <li>\(\lambda=2\) and \(\lambda=5\)</li>
+                <li>\(x(t)=A\cos(2t)+B\sin(2t)\)</li>
+                <li>0</li>
+              </ul>
+            </details>
+          </article>
+
+          <article class="test-card">
+            <h3>Classical Physics Test</h3>
+            <ol>
+              <li><p>A 2 kg mass accelerates at \(3\,\text{m/s}^2\). What force acts on it?</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Explain conservation of energy for a mass sliding down a frictionless ramp.</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Derive the period relationship for a simple harmonic oscillator from \(d^2x/dt^2+\omega^2x=0\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>State what electric potential means in relation to electric field.</p><textarea placeholder="Your answer"></textarea></li>
+            </ol>
+            <details>
+              <summary>Answers</summary>
+              <ul>
+                <li>\(F=ma=6\,\text{N}\)</li>
+                <li>Potential energy converts to kinetic energy; total mechanical energy stays constant without friction.</li>
+                <li>The solution is sinusoidal with angular frequency \(\omega\), so \(T=2\pi/\omega\).</li>
+                <li>The electric field is related to potential by \(\vec E=-\nabla V\).</li>
+              </ul>
+            </details>
+          </article>
+
+          <article class="test-card">
+            <h3>Quantum I Test</h3>
+            <ol>
+              <li><p>What does \(|\psi(x)|^2\) represent?</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Normalize \(\psi(x)=A\sin(\pi x/L)\) on \(0&lt;x&lt;L\).</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>What is the physical meaning of an eigenvalue of an observable operator?</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>State the time-dependent Schrödinger equation.</p><textarea placeholder="Your answer"></textarea></li>
+              <li><p>Explain why the infinite square well has quantized energy levels.</p><textarea placeholder="Your answer"></textarea></li>
+            </ol>
+            <details>
+              <summary>Answers</summary>
+              <ul>
+                <li>Probability density for finding the particle at position \(x\).</li>
+                <li>\(A=\sqrt{2/L}\)</li>
+                <li>A possible measured value of that observable.</li>
+                <li>\(i\hbar\partial\Psi/\partial t=\hat H\Psi\)</li>
+                <li>Boundary conditions allow only standing waves with discrete wavelengths, producing discrete energies.</li>
+              </ul>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="resources">
+        <div class="section-head">
+          <h2>Exams and Problem Sets</h2>
+          <p>Use these as proof of readiness. First do problem sets open-book, then take exams timed.</p>
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card">
+            <div class="badge">C1</div>
+            <div>
+              <h3>Calculus I</h3>
+              <p>Limits, derivatives, integrals, applications.</p>
+              <a href="https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/pages/exams/" target="_blank" rel="noreferrer">MIT 18.01SC Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">C3</div>
+            <div>
+              <h3>Multivariable Calculus</h3>
+              <p>Gradients, multiple integrals, vector calculus.</p>
+              <a href="https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/pages/exams/" target="_blank" rel="noreferrer">MIT 18.02SC Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">LA</div>
+            <div>
+              <h3>Linear Algebra</h3>
+              <p>Matrix methods, vector spaces, eigenvalues.</p>
+              <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/pages/exams/" target="_blank" rel="noreferrer">MIT 18.06 Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">DE</div>
+            <div>
+              <h3>Differential Equations</h3>
+              <p>ODEs, oscillators, systems, Fourier basics.</p>
+              <a href="https://ocw.mit.edu/courses/18-03-differential-equations-spring-2010/pages/exams/" target="_blank" rel="noreferrer">MIT 18.03 Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">M</div>
+            <div>
+              <h3>Classical Mechanics</h3>
+              <p>Forces, energy, momentum, rotation, oscillations.</p>
+              <a href="https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/pages/exams/" target="_blank" rel="noreferrer">MIT 8.01SC Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">EM</div>
+            <div>
+              <h3>Electricity and Magnetism</h3>
+              <p>Fields, potentials, circuits, magnetism.</p>
+              <a href="https://ocw.mit.edu/courses/8-02sc-physics-ii-electricity-and-magnetism-fall-2010/pages/exams/" target="_blank" rel="noreferrer">MIT 8.02SC Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">QM</div>
+            <div>
+              <h3>Quantum I</h3>
+              <p>Wave mechanics, wells, tunneling, operators, spin basics.</p>
+              <a href="https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/pages/exams/" target="_blank" rel="noreferrer">MIT 8.04 Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">Q2</div>
+            <div>
+              <h3>Quantum II</h3>
+              <p>Hydrogen, identical particles, perturbation, deeper formalism.</p>
+              <a href="https://ocw.mit.edu/courses/8-05-quantum-physics-ii-fall-2013/pages/exams/" target="_blank" rel="noreferrer">MIT 8.05 Exams</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">Q3</div>
+            <div>
+              <h3>Quantum III</h3>
+              <p>Advanced undergraduate quantum topics and problem sets.</p>
+              <a href="https://ocw.mit.edu/courses/8-06-quantum-physics-iii-spring-2018/" target="_blank" rel="noreferrer">MIT 8.06 Quantum Physics III</a>
+            </div>
+          </article>
+          <article class="resource-card">
+            <div class="badge">QC</div>
+            <div>
+              <h3>Quantum Computing</h3>
+              <p>Qubits, gates, circuits, and quantum information basics.</p>
+              <a href="https://quantum.cloud.ibm.com/learning/en" target="_blank" rel="noreferrer">IBM Quantum Learning</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="routine">
+        <div class="section-head">
+          <h2>Weekly Routine</h2>
+          <p>Physics is learned through problem solving. Lectures are only useful when your pencil is moving.</p>
+        </div>
+        <div class="routine">
+          <article class="day">
+            <h3>Mon</h3>
+            <p>Math lecture plus 10-15 problems. Rewrite every missed step.</p>
+          </article>
+          <article class="day">
+            <h3>Tue</h3>
+            <p>Physics reading plus 8-12 problems. State assumptions before calculating.</p>
+          </article>
+          <article class="day">
+            <h3>Wed</h3>
+            <p>Math problem set plus formula notes and one derivation from memory.</p>
+          </article>
+          <article class="day">
+            <h3>Thu</h3>
+            <p>Physics lecture plus derivation practice and diagrams.</p>
+          </article>
+          <article class="day">
+            <h3>Fri</h3>
+            <p>Programming or numerical exercise: plot, simulate, diagonalize, compare.</p>
+          </article>
+          <article class="day">
+            <h3>Sat</h3>
+            <p>Long problem-solving block or timed exam section.</p>
+          </article>
+          <article class="day">
+            <h3>Sun</h3>
+            <p>Review errors, make flashcards, rebuild weak topics.</p>
+          </article>
+          <article class="day">
+            <h3>Rule</h3>
+            <p>Never count a topic complete until you solved problems and checked your reasoning.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="page">
+    Built as a serious pre-master study hub: foundations first, problems always, quantum mechanics earned one layer at a time.
+  </footer>
+
+  <div class="modal" id="bookModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog" role="document">
+      <div class="modal-head">
+        <div>
+          <h3 id="modalTitle">Study item</h3>
+          <p id="modalSubtitle"></p>
+        </div>
+        <button class="close-button" type="button" id="closeModal" aria-label="Close popup">x</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const BOOKS = [
+      {
+        id: "openstax-precalculus",
+        group: "Foundation math",
+        level: "Free foundation",
+        title: "OpenStax Precalculus",
+        use: "Repair algebra, functions, graphs, exponentials, logarithms, and trigonometry before calculus.",
+        when: "Use first if your symbolic math feels rusty or if graphs/trig identities slow you down.",
+        topics: ["Functions, domain/range, inverse and composite functions", "Polynomial, rational, exponential, and logarithmic functions", "Trigonometric functions, radians, unit circle, identities", "Systems of equations and analytic geometry basics"],
+        learn: ["Translate real situations into functions", "Read a graph as information, not decoration", "Manipulate exponentials/logarithms and trigonometric identities", "Use radians and phase shifts for wave descriptions"],
+        skills: ["Solve algebraic equations cleanly", "Sketch transformed graphs", "Use trig identities without panic", "Prepare for calculus and wave mechanics"],
+        checkpoint: "Complete algebra/trig practice until sine waves, logs, and graph transformations feel routine.",
+        link: "https://openstax.org/details/books/precalculus-2e"
+      },
+      {
+        id: "openstax-calculus",
+        group: "Foundation math",
+        level: "Free university math",
+        title: "OpenStax Calculus Vol. 1-3",
+        use: "A free full calculus path from limits and derivatives through multivariable and vector calculus.",
+        when: "Use as your main free calculus textbook, especially if you want lots of exercises.",
+        topics: ["Vol. 1: limits, derivatives, applications, integrals", "Vol. 2: integration techniques, sequences, series, parametric and polar curves", "Vol. 3: vectors, partial derivatives, multiple integrals, vector calculus"],
+        learn: ["Derivatives as rates of change", "Integrals as accumulation and normalization", "Series as controlled approximations", "Vector calculus as the language of fields"],
+        skills: ["Differentiate and integrate by hand", "Set up physical integrals", "Use partial derivatives and gradients", "Handle coordinate systems for physics problems"],
+        checkpoint: "Take MIT 18.01SC and 18.02SC exams after finishing the corresponding topics.",
+        link: "https://openstax.org/subjects/math"
+      },
+      {
+        id: "calculus-made-easy",
+        group: "Foundation math",
+        level: "Gentle bridge",
+        title: "Calculus Made Easy",
+        use: "A friendly conceptual first pass through calculus before heavier university texts.",
+        when: "Use before or alongside OpenStax/MIT if calculus feels intimidating.",
+        topics: ["What derivatives mean", "Simple differentiation rules", "What integration reverses", "Small quantities and approximations"],
+        learn: ["Why calculus works at an intuitive level", "How derivatives encode change", "How integrals accumulate pieces", "How notation becomes less frightening"],
+        skills: ["Explain derivative and integral ideas in plain language", "Work simple examples by hand", "Move into formal calculus with less friction"],
+        checkpoint: "After this, start MIT 18.01SC or OpenStax Calculus Vol. 1 and solve real problem sets.",
+        link: "https://www.gutenberg.org/ebooks/33283"
+      },
+      {
+        id: "stewart-calculus",
+        group: "University math",
+        level: "Standard practice",
+        title: "Stewart, Calculus: Early Transcendentals",
+        use: "A standard university calculus practice text with many problem types.",
+        when: "Use if you want a traditional textbook alongside MIT/OpenStax, especially for extra exercises.",
+        topics: ["Ch. 2-7 style topics: limits, derivatives, applications, integrals, techniques", "Ch. 11-16 style topics: series, vectors, partial derivatives, multiple integrals, vector calculus"],
+        learn: ["Accuracy with symbolic manipulation", "Problem pattern recognition", "Setup of applied word problems", "Multivariable thinking for fields"],
+        skills: ["Solve broad calculus exercises", "Choose the right integration technique", "Use series approximations", "Work with gradients and multiple integrals"],
+        checkpoint: "Use it to generate extra practice before timed MIT calculus exams.",
+        link: "https://www.cengage.com/c/calculus-early-transcendentals-9e-stewart/"
+      },
+      {
+        id: "strang-linear-algebra",
+        group: "University math",
+        level: "Core math",
+        title: "Strang, Introduction to Linear Algebra",
+        use: "Your main linear algebra bridge into quantum mechanics.",
+        when: "Study after basic calculus starts, before serious quantum mechanics.",
+        topics: ["Matrices and Gaussian elimination", "Vector spaces, subspaces, rank, bases", "Orthogonality, projections, least squares", "Determinants, eigenvalues, eigenvectors, diagonalization", "Symmetric and positive definite matrices"],
+        learn: ["Matrices as transformations", "Basis and dimension as coordinate systems for thought", "Eigenvectors as natural directions", "Why diagonalization simplifies operators"],
+        skills: ["Solve systems", "Find eigenvalues/eigenvectors", "Decompose vectors in bases", "Understand inner products and orthogonality"],
+        checkpoint: "Pass MIT 18.06 exams, especially eigenvalue and orthogonality problems.",
+        link: "https://math.mit.edu/~gs/linearalgebra/"
+      },
+      {
+        id: "lay-linear-algebra",
+        group: "University math",
+        level: "Alternative practice",
+        title: "Lay, Linear Algebra and Its Applications",
+        use: "A second source for structured linear algebra exercises.",
+        when: "Use if Strang feels too lecture-like or you need more guided practice.",
+        topics: ["Linear equations and matrices", "Vector spaces", "Linear transformations", "Eigenvalues and eigenvectors", "Orthogonality"],
+        learn: ["Procedural reliability", "How linear maps act on spaces", "Connections between matrix algebra and geometry"],
+        skills: ["Do computations accurately", "Recognize when a physics problem is an eigenvalue problem", "Switch between algebraic and geometric views"],
+        checkpoint: "Use selected problems to reinforce weak Strang/MIT 18.06 topics.",
+        link: "https://www.pearson.com/en-us/subject-catalog/p/linear-algebra-and-its-applications/P200000006236"
+      },
+      {
+        id: "boyce-diprima",
+        group: "University math",
+        level: "Differential equations",
+        title: "Boyce and DiPrima, Elementary Differential Equations",
+        use: "Standard ODE training for oscillators, systems, and physics models.",
+        when: "Use after Calculus I and before quantum wave equations.",
+        topics: ["First-order ODEs", "Second-order linear ODEs", "Systems of ODEs", "Series solutions", "Laplace transforms", "Fourier methods as needed"],
+        learn: ["Differential equations as laws of change", "Initial and boundary conditions", "Oscillation and resonance", "Approximation when exact solutions fail"],
+        skills: ["Solve separable and linear equations", "Solve harmonic oscillator equations", "Analyze stability and modes", "Use boundary conditions to select solutions"],
+        checkpoint: "Solve oscillator and separation-of-variables problems before moving into Schrödinger equations.",
+        link: "https://www.wiley.com/en-us/Elementary+Differential+Equations+and+Boundary+Value+Problems%2C+12th+Edition-p-9781119820510"
+      },
+      {
+        id: "boas-math-methods",
+        group: "University math",
+        level: "Math methods",
+        title: "Boas, Mathematical Methods in the Physical Sciences",
+        use: "Bridge from math courses to the way physicists actually use math.",
+        when: "Use after calculus/linear algebra basics, alongside classical and quantum preparation.",
+        topics: ["Infinite series", "Complex numbers", "Linear algebra", "Fourier series and transforms", "Differential equations", "Special functions"],
+        learn: ["How math tools appear across physics", "Complex numbers as working objects", "Fourier analysis as wave decomposition", "Special functions as natural physics solutions"],
+        skills: ["Use complex exponentials", "Recognize Fourier-friendly problems", "Handle physicist notation", "Connect math methods to actual models"],
+        checkpoint: "Use selected chapters to patch gaps before Griffiths quantum mechanics.",
+        link: "https://www.wiley.com/en-us/Mathematical+Methods+in+the+Physical+Sciences%2C+3rd+Edition-p-9780471198260"
+      },
+      {
+        id: "arfken-math-methods",
+        group: "University math",
+        level: "Reference",
+        title: "Arfken, Weber and Harris, Mathematical Methods for Physicists",
+        use: "A deeper reference for advanced mathematical physics.",
+        when: "Use later as a reference, not as your first math-methods book.",
+        topics: ["Vector analysis", "Complex variables", "Differential equations", "Special functions", "Fourier series and integral transforms", "Group theory basics"],
+        learn: ["How advanced physics texts expect you to use math", "Where special functions come from", "How formal tools generalize earlier methods"],
+        skills: ["Look up methods intelligently", "Read more advanced physics derivations", "Support QFT, condensed matter, and advanced QM study"],
+        checkpoint: "Use it to clarify advanced topics after Boas/Shankar, not to delay starting quantum mechanics.",
+        link: "https://www.elsevier.com/books/mathematical-methods-for-physicists/arfken/978-0-12-384654-9"
+      },
+      {
+        id: "openstax-university-physics",
+        group: "Classical physics",
+        level: "Free physics base",
+        title: "OpenStax University Physics Vol. 1-3",
+        use: "A free calculus-based physics sequence for mechanics, waves, thermodynamics, E&M, optics, relativity, and modern physics.",
+        when: "Use as your main broad physics recap before specialized undergraduate texts.",
+        topics: ["Vol. 1: mechanics, rotation, oscillations, waves, thermodynamics", "Vol. 2: electricity, magnetism, circuits, electromagnetic waves, optics", "Vol. 3: special relativity, quantum introduction, atoms, nuclei, particles"],
+        learn: ["How calculus enters physics", "Core conservation laws", "Fields and potentials", "Wave behavior and modern physics failures"],
+        skills: ["Solve multi-step physics problems", "Use units and diagrams", "Relate math models to physical interpretation", "Prepare for MIT 8.01/8.02/8.03"],
+        checkpoint: "After each volume/topic, take the matching MIT OCW exam section.",
+        link: "https://openstax.org/details/books/university-physics-volume-1"
+      },
+      {
+        id: "feynman-lectures",
+        group: "Classical physics",
+        level: "Intuition",
+        title: "Feynman Lectures Vol. I",
+        use: "Deep intuition for mechanics, energy, waves, heat, and the style of physical reasoning.",
+        when: "Use as a companion, not as your only problem-solving textbook.",
+        topics: ["Atoms in motion", "Conservation of energy", "Newtonian mechanics", "Oscillations", "Waves", "Heat and statistical ideas"],
+        learn: ["Physical interpretation over rote formulas", "How to think from first principles", "Why simple systems reveal deep structure"],
+        skills: ["Explain concepts clearly", "Develop intuition before calculation", "Connect different physics topics"],
+        checkpoint: "After reading, solve problems from OpenStax/MIT so the intuition becomes usable.",
+        link: "https://www.feynmanlectures.caltech.edu/I_toc.html"
+      },
+      {
+        id: "taylor-classical-mechanics",
+        group: "Classical physics",
+        level: "Serious mechanics",
+        title: "Taylor, Classical Mechanics",
+        use: "A serious undergraduate mechanics text after intro mechanics.",
+        when: "Use after OpenStax/MIT 8.01 basics if you want master-prep strength.",
+        topics: ["Newton's laws and projectiles", "Momentum and angular momentum", "Energy", "Oscillations", "Calculus of variations", "Lagrangian mechanics", "Hamiltonian mechanics introduction"],
+        learn: ["Mechanics as differential equations plus conservation laws", "Why generalized coordinates matter", "How Lagrangians lead toward quantum formalism"],
+        skills: ["Derive equations of motion", "Use energy and momentum methods", "Handle oscillations", "Understand Lagrangian setup"],
+        checkpoint: "Be able to derive equations of motion from both Newtonian and Lagrangian viewpoints for simple systems.",
+        link: "https://uscibooks.aip.org/books/classical-mechanics/"
+      },
+      {
+        id: "griffiths-electrodynamics",
+        group: "Classical physics",
+        level: "Serious E&M",
+        title: "Griffiths, Introduction to Electrodynamics",
+        use: "The standard undergraduate E&M text for fields, potentials, and Maxwell equations.",
+        when: "Use after intro E&M and vector calculus basics.",
+        topics: ["Vector analysis", "Electrostatics", "Potentials", "Electric fields in matter", "Magnetostatics", "Magnetic fields in matter", "Electrodynamics and Maxwell equations"],
+        learn: ["Fields as central physical objects", "Potentials and boundary conditions", "How Maxwell equations organize electromagnetism", "Why vector calculus is not optional"],
+        skills: ["Use Gauss's law and boundary conditions", "Compute fields and potentials", "Read Maxwell equations physically", "Prepare for advanced modern physics"],
+        checkpoint: "Solve standard field/potential problems and explain the role of potentials before studying advanced quantum topics.",
+        link: "https://www.cambridge.org/highereducation/books/introduction-to-electrodynamics/4D7C3458D30225157AB661AAD2664EB6"
+      },
+      {
+        id: "taylor-wheeler",
+        group: "Classical physics",
+        level: "Relativity bridge",
+        title: "Taylor and Wheeler, Spacetime Physics",
+        use: "A clean introduction to special relativity and spacetime thinking.",
+        when: "Use before relativistic quantum ideas or QFT curiosity.",
+        topics: ["Spacetime diagrams", "Lorentz transformations", "Time dilation", "Length contraction", "Four-momentum", "Relativistic energy"],
+        learn: ["How simultaneity changes", "Why spacetime is geometric", "How energy and momentum combine relativistically"],
+        skills: ["Solve time dilation and length contraction problems", "Use spacetime diagrams", "Interpret \(E^2=(pc)^2+(mc^2)^2\)"],
+        checkpoint: "Explain Lorentz transformations and solve basic relativity problems without relying on slogans.",
+        link: "https://www.eftaylor.com/spacetimephysics/"
+      },
+      {
+        id: "susskind-theoretical-minimum",
+        group: "Quantum mechanics",
+        level: "Conceptual bridge",
+        title: "Susskind, Quantum Mechanics: The Theoretical Minimum",
+        use: "A conceptual and mathematical bridge into real quantum mechanics.",
+        when: "Use right before Griffiths, especially to understand states, measurement, spin, and operators.",
+        topics: ["State vectors", "Spin systems", "Operators and observables", "Entanglement", "Time evolution", "Uncertainty"],
+        learn: ["Quantum states as vectors", "Measurement as basis-dependent probability", "Why noncommuting observables matter", "How simple spin systems reveal the structure"],
+        skills: ["Compute simple amplitudes", "Use basic bra-ket notation", "Explain spin measurement", "Understand unitary time evolution"],
+        checkpoint: "After this, Griffiths Ch. 1 should feel like a calculational extension, not a foreign language.",
+        link: "https://theoreticalminimum.com/courses/quantum-mechanics/2012/fall"
+      },
+      {
+        id: "griffiths-quantum",
+        group: "Quantum mechanics",
+        level: "Main text",
+        title: "Griffiths and Schroeter, Introduction to Quantum Mechanics",
+        use: "The main first serious quantum mechanics textbook.",
+        when: "Use after calculus, linear algebra basics, differential equations, waves, and modern physics.",
+        topics: ["Wavefunction and Schrödinger equation", "Time-independent Schrödinger equation", "Formalism", "Quantum mechanics in 3D", "Identical particles", "Time-independent perturbation theory", "Variational principle, WKB, scattering, time-dependent perturbation"],
+        learn: ["Probability interpretation", "Stationary states", "Operators and measurement", "Angular momentum and spin", "Hydrogen atom and approximation methods"],
+        skills: ["Normalize wavefunctions", "Solve wells and oscillators", "Compute expectation values", "Use commutators and uncertainty", "Work perturbation problems"],
+        checkpoint: "Solve many end-of-chapter problems and then take MIT 8.04/8.05 exams.",
+        link: "https://www.cambridge.org/highereducation/books/introduction-to-quantum-mechanics/990799CA07A83FC5312402AF6860311E"
+      },
+      {
+        id: "shankar-quantum",
+        group: "Quantum mechanics",
+        level: "Advanced core",
+        title: "Shankar, Principles of Quantum Mechanics",
+        use: "A more mathematical second pass through quantum mechanics.",
+        when: "Use after you have started Griffiths or when you want stronger formal foundations.",
+        topics: ["Mathematical introduction", "Postulates", "One-dimensional systems", "Harmonic oscillator", "Symmetries", "Rotations and angular momentum", "Hydrogen atom", "Spin", "Approximation methods", "Scattering"],
+        learn: ["Quantum postulates as a logical system", "Dirac notation fluency", "Symmetry and generators", "Algebraic solution methods", "Formal approximation theory"],
+        skills: ["Work comfortably in abstract Hilbert space", "Use ladder operators", "Handle angular momentum algebra", "Read more advanced physics texts"],
+        checkpoint: "Use Shankar to deepen topics after doing concrete Griffiths problems.",
+        link: "https://link.springer.com/book/9780306447907"
+      },
+      {
+        id: "nielsen-chuang",
+        group: "Specializations",
+        level: "Quantum computing",
+        title: "Nielsen and Chuang, Quantum Computation and Quantum Information",
+        use: "The standard reference for quantum computing and quantum information.",
+        when: "Use after linear algebra and Quantum I basics.",
+        topics: ["Qubits", "Quantum gates", "Measurement", "Entanglement", "Quantum circuits", "Simple algorithms", "Information theory basics"],
+        learn: ["How qubits generalize bits", "How gates are unitary operators", "How tensor products build multi-qubit states", "Why entanglement is computationally important"],
+        skills: ["Represent qubit states", "Apply simple gates", "Analyze small circuits", "Connect quantum mechanics to information processing"],
+        checkpoint: "Implement simple circuits in IBM Quantum or Qiskit after studying Ch. 1-4 style topics.",
+        link: "https://www.cambridge.org/highereducation/books/quantum-computation-and-quantum-information/01E10196D0A682A6AEFFEA52D53BE9AE"
+      },
+      {
+        id: "lancaster-blundell",
+        group: "Specializations",
+        level: "QFT bridge",
+        title: "Lancaster and Blundell, Quantum Field Theory for the Gifted Amateur",
+        use: "A friendlier first bridge into quantum field theory.",
+        when: "Use after Quantum II, special relativity, and Lagrangian/Hamiltonian comfort.",
+        topics: ["Classical fields", "Lagrangian field theory", "Second quantization", "Creation and annihilation operators", "Feynman diagrams", "QED introduction"],
+        learn: ["Why fields replace particles", "How quantized fields create particle-like excitations", "What diagrams calculate conceptually"],
+        skills: ["Read basic field-theory notation", "Understand creation/annihilation operators", "Follow introductory QFT derivations"],
+        checkpoint: "Use before more formal QFT courses like MIT 8.323 or Peskin and Schroeder.",
+        link: "https://global.oup.com/academic/product/quantum-field-theory-for-the-gifted-amateur-9780199699339"
+      },
+      {
+        id: "kittel-solid-state",
+        group: "Specializations",
+        level: "Condensed matter",
+        title: "Kittel, Introduction to Solid State Physics",
+        use: "A standard first condensed matter text.",
+        when: "Use after quantum mechanics basics and some statistical/thermal physics.",
+        topics: ["Crystal structure", "Reciprocal lattice", "Phonons", "Free electron model", "Energy bands", "Semiconductors", "Superconductivity basics"],
+        learn: ["How quantum mechanics explains materials", "Why periodic structure creates bands", "How lattice vibrations become phonons"],
+        skills: ["Use reciprocal space", "Interpret band diagrams", "Connect microscopic models to material properties"],
+        checkpoint: "Study after Quantum I if materials, semiconductors, or superconductors interest you.",
+        link: "https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268"
+      },
+      {
+        id: "ashcroft-mermin",
+        group: "Specializations",
+        level: "Advanced condensed matter",
+        title: "Ashcroft and Mermin, Solid State Physics",
+        use: "A deeper condensed matter reference after Kittel.",
+        when: "Use later, once reciprocal space and quantum/statistical basics are comfortable.",
+        topics: ["Drude and Sommerfeld models", "Crystal lattices", "Reciprocal lattice", "Band theory", "Semiconductors", "Magnetism and superconductivity"],
+        learn: ["More rigorous models of electrons in solids", "How band theory is developed", "How statistical mechanics enters materials"],
+        skills: ["Read advanced condensed matter arguments", "Work band-structure style problems", "Prepare for graduate materials physics"],
+        checkpoint: "Do not start here first. Use it after Kittel or a course structure.",
+        link: "https://www.cengage.com/c/solid-state-physics-1e-ashcroft-mermin/"
+      },
+      {
+        id: "newman-computational",
+        group: "Specializations",
+        level: "Computational physics",
+        title: "Newman, Computational Physics",
+        use: "A practical guide to using code as a physics learning tool.",
+        when: "Use alongside math and physics once Python basics are comfortable.",
+        topics: ["Numerical integration", "Differentiation", "ODE solving", "Monte Carlo", "Fourier transforms", "Eigenvalue problems", "PDEs"],
+        learn: ["How to approximate when exact math is impossible", "How to test analytic answers numerically", "How simulations reveal physical behavior"],
+        skills: ["Use Python/NumPy/SciPy", "Solve ODEs numerically", "Diagonalize Hamiltonian matrices", "Plot wavefunctions and probabilities"],
+        checkpoint: "Build mini-projects: particle in a box, tunneling barrier, harmonic oscillator, spin simulation.",
+        link: "http://www-personal.umich.edu/~mejn/cp/"
+      }
+    ];
+
+    const GROUP_ORDER = ["Foundation math", "University math", "Classical physics", "Quantum mechanics", "Specializations"];
+    const TASK_KEY = "quantum-curriculum-v4:tasks";
+    const modal = document.getElementById("bookModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSubtitle = document.getElementById("modalSubtitle");
+    const modalBody = document.getElementById("modalBody");
+    const closeModalButton = document.getElementById("closeModal");
+    let lastActiveElement = null;
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function listHtml(items) {
+      return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+    }
+
+    function renderLibrary(filter = "all") {
+      const root = document.getElementById("libraryGroups");
+      const groups = GROUP_ORDER
+        .map((group) => [group, BOOKS.filter((book) => book.group === group && (filter === "all" || filter === group))])
+        .filter(([, books]) => books.length);
+
+      root.innerHTML = groups.map(([group, books]) => `
+        <section class="library-group" aria-label="${escapeHtml(group)}">
+          <h3>${escapeHtml(group)}</h3>
+          <div class="library-grid">
+            ${books.map((book) => `
+              <button class="book-card" type="button" data-book="${escapeHtml(book.id)}">
+                <span>${escapeHtml(book.level)}</span>
+                <strong>${escapeHtml(book.title)}</strong>
+                <p>${escapeHtml(book.use)}</p>
+                <em>Open study notes</em>
+              </button>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+
+      root.querySelectorAll("[data-book]").forEach((button) => {
+        button.addEventListener("click", () => openBook(button.dataset.book));
+      });
+    }
+
+    function openBook(id) {
+      const book = BOOKS.find((item) => item.id === id);
+      if (!book) return;
+      lastActiveElement = document.activeElement;
+      modalTitle.textContent = book.title;
+      modalSubtitle.textContent = `${book.group} | ${book.level}`;
+      modalBody.innerHTML = `
+        <section class="modal-section"><h4>What this is for</h4><p>${escapeHtml(book.use)}</p></section>
+        <section class="modal-section"><h4>When to use it</h4><p>${escapeHtml(book.when)}</p></section>
+        <section class="modal-section"><h4>Chapters or topics to study</h4>${listHtml(book.topics)}</section>
+        <section class="modal-section"><h4>Main points to learn</h4>${listHtml(book.learn)}</section>
+        <section class="modal-section"><h4>Skills you should be able to do</h4>${listHtml(book.skills)}</section>
+        <section class="modal-section"><h4>Problem or exam checkpoint</h4><p>${escapeHtml(book.checkpoint)}</p></section>
+        <section class="modal-section"><h4>External link</h4><p><a href="${escapeHtml(book.link)}" target="_blank" rel="noreferrer">Open resource or publisher page</a></p></section>
+      `;
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeModalButton.focus();
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([modalBody]);
+      }
+    }
+
+    function closeModal() {
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      if (lastActiveElement && typeof lastActiveElement.focus === "function") {
+        lastActiveElement.focus();
+      }
+    }
+
+    function loadTaskState() {
+      try {
+        return JSON.parse(localStorage.getItem(TASK_KEY) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveTaskState(state) {
+      localStorage.setItem(TASK_KEY, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      const boxes = [...document.querySelectorAll("input[type='checkbox'][data-task]")];
+      const done = boxes.filter((box) => box.checked).length;
+      const total = boxes.length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("taskDone").textContent = done;
+      document.getElementById("taskTotal").textContent = total;
+      document.getElementById("progressFill").style.width = `${percent}%`;
+      document.getElementById("progressMessage").textContent =
+        percent === 100 ? "Every task is checked. Time for exams and deeper problems." :
+        percent >= 70 ? "Strong momentum. Start using timed exams more often." :
+        percent >= 35 ? "You are building the base. Keep problem-solving consistently." :
+        "Start with baseline math, then build upward in order.";
+    }
+
+    function initializeProgress() {
+      const state = loadTaskState();
+      document.querySelectorAll("input[type='checkbox'][data-task]").forEach((box) => {
+        box.checked = Boolean(state[box.dataset.task]);
+        box.addEventListener("change", () => {
+          const next = loadTaskState();
+          next[box.dataset.task] = box.checked;
+          saveTaskState(next);
+          updateProgress();
+        });
+      });
+      updateProgress();
+    }
+
+    function scoreQuiz() {
+      const questions = [...document.querySelectorAll(".quiz-question")];
+      let score = 0;
+      const explanations = [];
+
+      questions.forEach((question, index) => {
+        const selected = question.querySelector("input[type='radio']:checked");
+        const isCorrect = selected && selected.value === question.dataset.answer;
+        if (isCorrect) score += 1;
+        explanations.push(`${index + 1}. ${isCorrect ? "Correct" : "Review"}: ${question.dataset.explain}`);
+      });
+
+      const label = score === questions.length
+        ? "Ready for the next level."
+        : score >= 3
+          ? "Close. Patch the weak spots."
+          : "Spend more time on foundations.";
+
+      document.getElementById("quizResult").innerHTML =
+        `<div>${score}/${questions.length} - ${label}</div><ol>${explanations.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>`;
+    }
+
+    document.getElementById("printPage").addEventListener("click", () => window.print());
+    document.getElementById("resetProgress").addEventListener("click", () => {
+      if (confirm("Reset all study checkboxes?")) {
+        localStorage.removeItem(TASK_KEY);
+        document.querySelectorAll("input[type='checkbox'][data-task]").forEach((box) => { box.checked = false; });
+        updateProgress();
+      }
+    });
+    document.getElementById("expandAll").addEventListener("click", () => {
+      document.querySelectorAll("details").forEach((details) => { details.open = true; });
+    });
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      document.querySelectorAll("details").forEach((details) => { details.open = false; });
+    });
+    document.getElementById("scoreQuiz").addEventListener("click", scoreQuiz);
+
+    document.querySelectorAll("[data-filter]").forEach((button) => {
+      button.addEventListener("click", () => renderLibrary(button.dataset.filter));
+    });
+
+    closeModalButton.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+    });
+
+    renderLibrary();
+    initializeProgress();
+  </script>
+</body>
+</html>
