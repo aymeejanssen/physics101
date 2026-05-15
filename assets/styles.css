@@ -279,6 +279,68 @@ p { color: var(--muted); margin: 0; }
   font-weight: 900;
 }
 
+.learning-path {
+  display: grid;
+  gap: 12px;
+  position: relative;
+}
+.learning-path::before {
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: linear-gradient(var(--teal), var(--gold), var(--violet), var(--red));
+  opacity: .55;
+}
+.learning-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+.step-number {
+  width: 54px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(247, 244, 234, .22);
+  border-radius: 50%;
+  background: #0e1622;
+  color: var(--ink);
+  font-weight: 950;
+  box-shadow: 0 0 0 7px rgba(7, 10, 16, .9);
+  z-index: 1;
+}
+.step-body {
+  display: grid;
+  gap: 10px;
+}
+.step-body .mini-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.mini-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(247, 244, 234, .05);
+  padding: 11px;
+}
+.mini-panel strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.lesson-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 4px;
+}
+
 .curriculum-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -301,6 +363,69 @@ p { color: var(--muted); margin: 0; }
   font-size: .78rem;
   font-weight: 850;
   text-transform: uppercase;
+}
+.concept-card .card-action {
+  display: inline-flex;
+  margin-top: 14px;
+  color: var(--teal);
+  font-weight: 880;
+}
+
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.lesson-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(247, 244, 234, .05);
+  padding: 14px;
+}
+.lesson-panel.full { grid-column: 1 / -1; }
+.lesson-panel ul, .lesson-panel ol {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+.lesson-panel li + li { margin-top: 6px; }
+.formula-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+.formula-card {
+  border: 1px solid rgba(99, 179, 255, .24);
+  border-radius: var(--radius);
+  background: rgba(99, 179, 255, .07);
+  padding: 12px;
+}
+.formula-card code {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: var(--ink);
+  background: rgba(7, 10, 16, .7);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 6px;
+}
+.book-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+.book-item {
+  border: 1px solid rgba(243, 201, 105, .24);
+  border-radius: var(--radius);
+  background: rgba(243, 201, 105, .07);
+  padding: 12px;
+}
+.book-item h4 {
+  margin-bottom: 4px;
+}
+.example-box {
+  border-left: 4px solid var(--teal);
+  padding-left: 12px;
 }
 
 .workspace {
@@ -496,6 +621,7 @@ code { font-family: "SFMono-Regular", Consolas, monospace; }
   background: #0e1622;
   box-shadow: var(--shadow);
 }
+.modal-dialog.wide { width: min(1080px, 100%); }
 .modal-head {
   position: sticky;
   top: 0;
@@ -561,7 +687,8 @@ code { font-family: "SFMono-Regular", Consolas, monospace; }
 @media (max-width: 1050px) {
   .section-head, .dashboard, .workspace, .lab, .graph-wrap,
   .grid.two, .grid.three, .grid.four,
-  .curriculum-grid, .textbook-grid {
+  .curriculum-grid, .textbook-grid, .lesson-grid,
+  .step-body .mini-row {
     grid-template-columns: 1fr;
   }
   .nav { align-items: flex-start; flex-direction: column; padding: 12px 0; }
@@ -574,4 +701,7 @@ code { font-family: "SFMono-Regular", Consolas, monospace; }
   .kg-node { position: static; width: auto; margin: 8px 0; }
   .knowledge-graph svg { display: none; }
   .canvas-panel { min-height: 330px; }
+  .learning-path::before { left: 20px; }
+  .learning-step { grid-template-columns: 42px minmax(0, 1fr); gap: 11px; }
+  .step-number { width: 42px; }
 }

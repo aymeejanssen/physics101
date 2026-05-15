@@ -1,24 +1,369 @@
 const STORE_KEY = "physics101-ai-profile-v1";
 
 const CONCEPTS = [
-  { id: "arithmetic", title: "Arithmetic Foundations", group: "Foundation", level: 0, prereq: [], goal: "Fractions, ratios, powers, scientific notation, units, and dimensional thinking." },
-  { id: "algebra", title: "Algebra", group: "Foundation", level: 1, prereq: ["arithmetic"], goal: "Equations, functions, graph reading, exponentials, logarithms, and symbolic manipulation." },
-  { id: "trig", title: "Trigonometry", group: "Foundation", level: 2, prereq: ["algebra"], goal: "Radians, unit circle, identities, sine waves, phase, amplitude, and oscillations." },
-  { id: "calculus", title: "Calculus", group: "Math", level: 3, prereq: ["algebra", "trig"], goal: "Limits, derivatives, integrals, multivariable calculus, and vector calculus." },
-  { id: "linear", title: "Linear Algebra", group: "Math", level: 4, prereq: ["algebra"], goal: "Vectors, matrices, vector spaces, eigenvalues, eigenvectors, Hermitian operators." },
-  { id: "de", title: "Differential Equations", group: "Math", level: 5, prereq: ["calculus"], goal: "ODEs, PDEs, oscillators, Fourier methods, and boundary conditions." },
-  { id: "mechanics", title: "Classical Mechanics", group: "Physics", level: 6, prereq: ["calculus"], goal: "Newtonian, Lagrangian, Hamiltonian mechanics, energy, momentum, oscillations." },
-  { id: "em", title: "Electromagnetism", group: "Physics", level: 7, prereq: ["calculus", "linear"], goal: "Fields, potentials, Maxwell equations, waves, radiation, and boundary problems." },
-  { id: "thermo", title: "Thermodynamics", group: "Physics", level: 8, prereq: ["calculus", "mechanics"], goal: "Heat, work, entropy, equilibrium, engines, and thermodynamic potentials." },
-  { id: "statmech", title: "Statistical Mechanics", group: "Physics", level: 9, prereq: ["thermo", "linear"], goal: "Microstates, ensembles, Boltzmann factors, partition functions, quantum statistics." },
-  { id: "sr", title: "Special Relativity", group: "Modern", level: 10, prereq: ["mechanics"], goal: "Spacetime, Lorentz transformations, four-vectors, relativistic energy and momentum." },
-  { id: "gr", title: "General Relativity", group: "Advanced", level: 11, prereq: ["sr", "calculus", "linear"], goal: "Tensors, curvature, geodesics, Einstein equation, black holes, and cosmology." },
-  { id: "qm", title: "Quantum Mechanics", group: "Modern", level: 12, prereq: ["linear", "de", "mechanics"], goal: "Wavefunctions, operators, Hilbert spaces, spin, hydrogen, perturbation, scattering." },
-  { id: "qft", title: "Quantum Field Theory", group: "Advanced", level: 13, prereq: ["qm", "sr"], goal: "Fields, creation and annihilation operators, path integrals, QED, renormalization ideas." },
-  { id: "particle", title: "Particle Physics", group: "Advanced", level: 14, prereq: ["qft"], goal: "Symmetries, Standard Model, quarks, leptons, gauge bosons, and Higgs overview." },
-  { id: "condensed", title: "Condensed Matter", group: "Advanced", level: 15, prereq: ["qm", "statmech"], goal: "Crystals, reciprocal space, phonons, bands, semiconductors, superconductivity." },
-  { id: "computational", title: "Computational Physics", group: "Advanced", level: 16, prereq: ["calculus", "linear"], goal: "Numerical integration, ODE/PDE solvers, eigenproblems, Monte Carlo, simulations." }
+  {
+    id: "arithmetic",
+    title: "Arithmetic Foundations",
+    group: "Foundation",
+    level: 0,
+    prereq: [],
+    goal: "Fractions, ratios, powers, scientific notation, units, and dimensional thinking.",
+    summary: "This is the reset layer. Physics uses numbers with meaning, so you need fast fraction work, powers of ten, unit conversion, proportional reasoning, and comfort checking whether an answer is physically sensible.",
+    mustLearn: ["Fractions, decimals, percentages, and ratios", "Scientific notation and order-of-magnitude estimates", "Unit conversion and dimensional analysis", "Powers, roots, exponents, and significant figures", "Reading a quantity as number plus unit, not just number"],
+    books: [
+      bookNote("OpenStax Prealgebra / Elementary Algebra", "Use as the repair manual for arithmetic and equation basics.", "Fractions, decimals, ratios, exponents, roots, linear equations.", "Do many small exercises until you can convert units and simplify expressions without hesitation."),
+      bookNote("Khan Academy Arithmetic and Pre-Algebra", "Use for drill and fast feedback.", "Fractions, negative numbers, ratios, powers, units.", "This is your daily fluency gym before heavier physics starts.")
+    ],
+    formulas: [
+      formulaNote("a^m a^n = a^{m+n}", "Exponents track repeated multiplication. This is essential for scientific notation and dimensional scaling."),
+      formulaNote("1 = \\frac{1000\\,m}{1\\,km} = \\frac{60\\,s}{1\\,min}", "Unit conversion works by multiplying by forms of one, so the physical quantity does not change.")
+    ],
+    examples: ["Convert 72 km/h into m/s and explain why the answer should be smaller as a number.", "Estimate the number of seconds in one year using powers of ten before using a calculator."],
+    checkpoint: "You are ready to move on when unit conversions, fractions, and powers of ten feel boring rather than mysterious."
+  },
+  {
+    id: "algebra",
+    title: "Algebra",
+    group: "Foundation",
+    level: 1,
+    prereq: ["arithmetic"],
+    goal: "Equations, functions, graph reading, exponentials, logarithms, and symbolic manipulation.",
+    summary: "Algebra is how you move from numbers to relationships. In physics you constantly solve for unknowns, rearrange formulas, read graphs, and express how one quantity depends on another.",
+    mustLearn: ["Solve linear and quadratic equations", "Manipulate symbols without losing units", "Understand functions, domains, ranges, and graphs", "Use exponentials and logarithms", "Translate word problems into equations"],
+    books: [
+      bookNote("OpenStax Algebra and Trigonometry", "Use for a full university-prep rebuild.", "Equations, inequalities, functions, polynomial/rational/exponential/logarithmic functions.", "This is the bridge from business math into scientific symbolic thinking."),
+      bookNote("Stewart Calculus, Algebra Review Appendices", "Use before calculus if symbolic manipulation is rusty.", "Functions, graphs, exponentials, logs, trigonometric review.", "The appendices are not the main course, but they reveal the algebra you must already control.")
+    ],
+    formulas: [
+      formulaNote("y = mx + b", "A line is a constant-rate relationship. Slope m is change in output per change in input."),
+      formulaNote("x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}", "The quadratic formula solves curved relationships such as projectile height, energy wells, and oscillation conditions.")
+    ],
+    examples: ["Rearrange E = (1/2)mv^2 to solve for v and explain each unit.", "Sketch y = 2e^{-x} and describe what the graph does as x grows."],
+    checkpoint: "You should be able to solve for any variable in a physics formula and explain the graph in words."
+  },
+  {
+    id: "trig",
+    title: "Trigonometry",
+    group: "Foundation",
+    level: 2,
+    prereq: ["algebra"],
+    goal: "Radians, unit circle, identities, sine waves, phase, amplitude, and oscillations.",
+    summary: "Trigonometry is the language of angles, rotations, waves, and circular motion. Quantum mechanics, electromagnetism, Fourier analysis, and oscillations all depend on sine and cosine fluency.",
+    mustLearn: ["Radians and the unit circle", "Sine, cosine, tangent, and inverse trig", "Core identities and angle formulas", "Amplitude, period, frequency, and phase", "Resolving vectors into components"],
+    books: [
+      bookNote("OpenStax Precalculus", "Use for a complete trig foundation.", "Trigonometric functions, identities, equations, polar coordinates, vectors.", "Study until sine and cosine feel geometric, not just calculator buttons."),
+      bookNote("3Blue1Brown Essence of Trigonometry / Linear Algebra crossover", "Use for visual intuition.", "Unit circle, rotations, projections, vectors.", "This helps connect trig to vector decomposition and later quantum state geometry.")
+    ],
+    formulas: [
+      formulaNote("\\sin^2\\theta + \\cos^2\\theta = 1", "The central identity comes from the unit circle and keeps wave and vector calculations consistent."),
+      formulaNote("x(t) = A\\cos(\\omega t + \\phi)", "A sinusoid models oscillation. A is amplitude, omega is angular frequency, phi is phase.")
+    ],
+    examples: ["Break a 10 N force at 30 degrees into horizontal and vertical components.", "Compare two waves with the same frequency but different phase and predict interference."],
+    checkpoint: "You are ready when radians, components, and sine-wave parameters are automatic."
+  },
+  {
+    id: "calculus",
+    title: "Calculus",
+    group: "Math",
+    level: 3,
+    prereq: ["algebra", "trig"],
+    goal: "Limits, derivatives, integrals, multivariable calculus, and vector calculus.",
+    summary: "Calculus is the language of change and accumulation. Motion, fields, probability density, wavefunctions, thermodynamics, and relativity all require derivatives and integrals.",
+    mustLearn: ["Limits and continuity", "Derivatives as rates and local linear approximations", "Integrals as accumulation and area", "Partial derivatives and gradients", "Multiple integrals and basic vector calculus"],
+    books: [
+      bookNote("OpenStax Calculus Vol. 1-3", "Use as the main free university calculus sequence.", "Single-variable calculus, integration techniques, sequences, multivariable calculus, vector calculus.", "Complete the examples and problem sets; physics begins to open after this."),
+      bookNote("Calculus Made Easy", "Use as the friendly first pass.", "Derivatives, integrals, and the intuition of small changes.", "Read before or alongside OpenStax if calculus feels emotionally intimidating."),
+      bookNote("Stewart Calculus", "Use as a standard university backup.", "Problem-heavy calculus from functions through multivariable topics.", "Excellent for building exam stamina.")
+    ],
+    formulas: [
+      formulaNote("\\frac{d}{dx}x^n = n x^{n-1}", "The power rule measures how a power changes locally."),
+      formulaNote("\\int_a^b f(x)\\,dx", "A definite integral accumulates a quantity across an interval, such as displacement from velocity or probability from density.")
+    ],
+    examples: ["Given x(t)=t^3-2t, compute velocity and acceleration, then explain their signs.", "Integrate a probability density over an interval and interpret the result as probability."],
+    checkpoint: "You should solve derivative/integral problems symbolically, interpret units, and know when a partial derivative is needed."
+  },
+  {
+    id: "linear",
+    title: "Linear Algebra",
+    group: "Math",
+    level: 4,
+    prereq: ["algebra"],
+    goal: "Vectors, matrices, vector spaces, eigenvalues, eigenvectors, Hermitian operators.",
+    summary: "Linear algebra is the skeleton of quantum mechanics. States are vectors, measurements are operators, basis changes are transformations, and allowed measurement values are eigenvalues.",
+    mustLearn: ["Vectors, matrices, dot products, norms, and projections", "Linear transformations and basis changes", "Solving linear systems", "Eigenvalues, eigenvectors, and diagonalization", "Orthogonality, complex vector spaces, and Hermitian matrices"],
+    books: [
+      bookNote("Strang, Introduction to Linear Algebra", "Use as the main conceptual university text.", "Matrices as transformations, four subspaces, orthogonality, determinants, eigenvalues.", "The goal is to see geometry behind the algebra."),
+      bookNote("Lay, Linear Algebra and Its Applications", "Use for structured practice.", "Linear systems, vector spaces, transformations, eigenvalues, applications.", "Good when you need many graded-style problems."),
+      bookNote("MIT 18.06 Gilbert Strang", "Use for lectures and problem sets.", "Full undergraduate linear algebra with exams.", "Pair lectures with written solutions.")
+    ],
+    formulas: [
+      formulaNote("A\\vec v = \\lambda \\vec v", "An eigenvector keeps its direction under A; lambda tells how much it scales. In quantum, measurement values come from eigenvalue equations."),
+      formulaNote("\\langle u, v \\rangle = u^\\dagger v", "The inner product measures overlap. Quantum probabilities are built from complex inner products.")
+    ],
+    examples: ["Find eigenvectors of a 2 by 2 matrix and describe the directions that do not rotate.", "Normalize a vector and compute its projection onto another vector."],
+    checkpoint: "You are quantum-ready when eigenvectors, basis changes, and inner products feel like geometry."
+  },
+  {
+    id: "de",
+    title: "Differential Equations",
+    group: "Math",
+    level: 5,
+    prereq: ["calculus"],
+    goal: "ODEs, PDEs, oscillators, Fourier methods, and boundary conditions.",
+    summary: "Differential equations describe systems through their rates of change. Oscillators, waves, circuits, heat flow, and the Schrodinger equation are all differential equation problems.",
+    mustLearn: ["Separable and first-order ODEs", "Second-order linear ODEs", "Driven and damped oscillators", "Boundary and initial conditions", "PDE basics and separation of variables"],
+    books: [
+      bookNote("Boyce and DiPrima, Differential Equations", "Use as the standard university ODE text.", "First-order equations, second-order equations, systems, Laplace transforms, series solutions.", "Do the oscillator and boundary-value chapters carefully."),
+      bookNote("Boas, Mathematical Methods in the Physical Sciences", "Use for physics-flavored math.", "ODEs, Fourier series, special functions, PDEs, complex numbers.", "This connects textbook math to actual physics equations."),
+      bookNote("MIT 18.03 Differential Equations", "Use for lectures, exams, and practice.", "Linear systems, oscillations, Fourier/Laplace methods.", "A strong checkpoint before serious mechanics and quantum.")
+    ],
+    formulas: [
+      formulaNote("\\frac{d^2x}{dt^2}+\\omega^2 x=0", "The simple harmonic oscillator. Its solutions are sine and cosine waves."),
+      formulaNote("X''(x)+k^2X(x)=0", "A separated spatial wave equation. Boundary conditions select allowed modes.")
+    ],
+    examples: ["Solve the undamped oscillator and identify amplitude, angular frequency, and phase.", "Use boundary conditions X(0)=X(L)=0 to explain why only certain wavelengths fit."],
+    checkpoint: "You should be able to solve basic ODEs and explain how boundary conditions create discrete modes."
+  },
+  {
+    id: "mechanics",
+    title: "Classical Mechanics",
+    group: "Physics",
+    level: 6,
+    prereq: ["calculus"],
+    goal: "Newtonian, Lagrangian, Hamiltonian mechanics, energy, momentum, oscillations.",
+    summary: "Mechanics teaches how physical laws become equations of motion. It is the training ground for conservation laws, oscillations, energy methods, and the Hamiltonian idea used in quantum mechanics.",
+    mustLearn: ["Newton's laws and free-body diagrams", "Work, energy, momentum, and angular momentum", "Oscillations and normal modes", "Lagrangian mechanics and generalized coordinates", "Hamiltonian mechanics and phase space"],
+    books: [
+      bookNote("OpenStax University Physics Vol. 1", "Use for the first university mechanics pass.", "Kinematics, forces, energy, momentum, rotation, oscillations, waves.", "Solve many problems before moving to formal mechanics."),
+      bookNote("Taylor, Classical Mechanics", "Use for serious undergraduate mechanics.", "Newtonian mechanics, oscillations, calculus of variations, Lagrangian and Hamiltonian mechanics.", "This is the bridge to theoretical physics."),
+      bookNote("Feynman Lectures Vol. I", "Use for intuition and taste.", "Motion, conservation laws, oscillations, waves, energy, probability ideas.", "Read selected chapters for deep physical insight, not as your only problem book.")
+    ],
+    formulas: [
+      formulaNote("\\vec F = m\\vec a", "Net force determines acceleration. Always identify the system before applying it."),
+      formulaNote("L = T - V", "The Lagrangian is kinetic minus potential energy. The action principle leads to equations of motion.")
+    ],
+    examples: ["Derive the pendulum equation for small angles and connect it to the harmonic oscillator.", "Use energy conservation to find the speed of a sliding mass without solving for time."],
+    checkpoint: "You are ready for quantum when energy, momentum, oscillators, and Hamiltonians are familiar."
+  },
+  {
+    id: "em",
+    title: "Electromagnetism",
+    group: "Physics",
+    level: 7,
+    prereq: ["calculus", "linear"],
+    goal: "Fields, potentials, Maxwell equations, waves, radiation, and boundary problems.",
+    summary: "Electromagnetism teaches field thinking. Instead of only particles, you learn fields, potentials, flux, circulation, waves, and gauge ideas that later become central in quantum field theory.",
+    mustLearn: ["Electric and magnetic fields", "Potential, gradient, divergence, curl, and flux", "Gauss law, Ampere law, Faraday law", "Maxwell equations and electromagnetic waves", "Boundary conditions and simple radiation ideas"],
+    books: [
+      bookNote("OpenStax University Physics Vol. 2", "Use for the first calculus-based E&M pass.", "Electric force, fields, circuits, magnetism, induction, AC, waves.", "Build problem fluency before Griffiths."),
+      bookNote("Griffiths, Introduction to Electrodynamics", "Use as the standard theoretical undergraduate text.", "Vector analysis, electrostatics, magnetostatics, electrodynamics, Maxwell equations.", "Read slowly; every equation has geometric meaning."),
+      bookNote("MIT 8.02 Electricity and Magnetism", "Use for lectures, assignments, and exams.", "University E&M with problem sets and demonstrations.", "Good for testing whether you can calculate, not just read.")
+    ],
+    formulas: [
+      formulaNote("\\nabla \\cdot \\vec E = \\rho/\\epsilon_0", "Electric field diverges from charge. This is Gauss law in differential form."),
+      formulaNote("\\vec F = q(\\vec E + \\vec v \\times \\vec B)", "The Lorentz force tells how charges respond to electric and magnetic fields.")
+    ],
+    examples: ["Use symmetry and Gauss law to find the electric field of a charged sphere.", "Explain why changing magnetic flux can create an electric field."],
+    checkpoint: "You should be able to translate a physical charge/current setup into field equations and boundary conditions."
+  },
+  {
+    id: "thermo",
+    title: "Thermodynamics",
+    group: "Physics",
+    level: 8,
+    prereq: ["calculus", "mechanics"],
+    goal: "Heat, work, entropy, equilibrium, engines, and thermodynamic potentials.",
+    summary: "Thermodynamics studies macroscopic systems through energy, heat, work, entropy, and equilibrium. It prepares you for statistical mechanics and the thermodynamic meaning of quantum states.",
+    mustLearn: ["Temperature, heat, work, and internal energy", "First and second laws", "Entropy and reversible/irreversible processes", "Heat engines and efficiency", "Thermodynamic potentials and equilibrium"],
+    books: [
+      bookNote("OpenStax University Physics Vol. 2", "Use for introductory thermal physics.", "Temperature, kinetic theory, heat, laws of thermodynamics.", "Start here if the language is new."),
+      bookNote("Schroeder, Thermal Physics", "Use as the modern undergraduate favorite.", "Entropy, temperature, free energy, Boltzmann statistics, quantum statistics.", "This book connects thermo and statistical mechanics clearly."),
+      bookNote("Feynman Lectures Vol. I thermal chapters", "Use for conceptual richness.", "Heat, energy, entropy, statistical viewpoint.", "Read for intuition about why entropy is not just disorder.")
+    ],
+    formulas: [
+      formulaNote("\\Delta U = Q - W", "The first law: internal energy changes by heat added minus work done by the system."),
+      formulaNote("dS = \\frac{\\delta Q_{rev}}{T}", "Entropy measures reversible heat flow per temperature and predicts allowed macroscopic processes.")
+    ],
+    examples: ["Analyze an ideal gas expansion and identify heat, work, and internal energy change.", "Compare reversible and irreversible paths between the same states."],
+    checkpoint: "You should be able to reason with energy and entropy without treating heat as a substance."
+  },
+  {
+    id: "statmech",
+    title: "Statistical Mechanics",
+    group: "Physics",
+    level: 9,
+    prereq: ["thermo", "linear"],
+    goal: "Microstates, ensembles, Boltzmann factors, partition functions, quantum statistics.",
+    summary: "Statistical mechanics explains thermodynamics from microscopic probability. It connects energy levels, probability weights, entropy, temperature, and quantum many-particle behavior.",
+    mustLearn: ["Microstates and macrostates", "Boltzmann distribution", "Partition functions", "Canonical, microcanonical, and grand canonical ensembles", "Fermi-Dirac and Bose-Einstein statistics"],
+    books: [
+      bookNote("Schroeder, Thermal Physics", "Use as the main entry point.", "Multiplicity, entropy, temperature, partition functions, quantum gases.", "Work the examples; this is one of the clearest bridges to quantum matter."),
+      bookNote("Kittel and Kroemer, Thermal Physics", "Use for a more compact theoretical view.", "Statistical basis of thermodynamics, distributions, quantum statistics.", "Good after Schroeder when you want more compression."),
+      bookNote("MIT Statistical Physics courses", "Use for exams and advanced problem sets.", "Ensembles, fluctuations, phase transitions, quantum statistics.", "Use when you want pre-master or master-level testing.")
+    ],
+    formulas: [
+      formulaNote("P_i = \\frac{e^{-E_i/kT}}{Z}", "The Boltzmann weight gives the probability of a state with energy E_i at temperature T."),
+      formulaNote("Z = \\sum_i e^{-E_i/kT}", "The partition function normalizes probabilities and generates thermodynamic quantities.")
+    ],
+    examples: ["Compute probabilities for a two-level system at low and high temperature.", "Explain why many microscopic arrangements can produce the same macrostate."],
+    checkpoint: "You should see thermodynamics as probability over energy states."
+  },
+  {
+    id: "sr",
+    title: "Special Relativity",
+    group: "Modern",
+    level: 10,
+    prereq: ["mechanics"],
+    goal: "Spacetime, Lorentz transformations, four-vectors, relativistic energy and momentum.",
+    summary: "Special relativity rebuilds space and time when light speed is invariant. It is mandatory for particle physics, field theory, and any quantum theory that respects high-speed motion.",
+    mustLearn: ["Postulates of special relativity", "Time dilation and length contraction", "Lorentz transformations", "Spacetime interval and light cones", "Relativistic energy, momentum, and four-vectors"],
+    books: [
+      bookNote("Taylor and Wheeler, Spacetime Physics", "Use as the clearest first serious text.", "Spacetime diagrams, invariant interval, momentum-energy, paradoxes.", "This is the book to make relativity visual and calculable."),
+      bookNote("OpenStax University Physics Vol. 3", "Use for a standard modern physics overview.", "Relativity, photons, matter waves, atomic physics.", "Good for broad coverage before advanced texts."),
+      bookNote("MIT 8.033 Relativity", "Use for deeper undergraduate practice.", "Special relativity and introduction to general relativity.", "Use for problem-set seriousness.")
+    ],
+    formulas: [
+      formulaNote("\\gamma = \\frac{1}{\\sqrt{1-v^2/c^2}}", "The Lorentz factor controls time dilation, length contraction, and relativistic momentum."),
+      formulaNote("E^2 = (pc)^2 + (mc^2)^2", "The energy-momentum relation works for massive and massless particles.")
+    ],
+    examples: ["Use a spacetime diagram to compare two observers' time measurements.", "Compute gamma for v = 0.8c and predict time dilation."],
+    checkpoint: "You should reason with invariants rather than absolute space and time."
+  },
+  {
+    id: "gr",
+    title: "General Relativity",
+    group: "Advanced",
+    level: 11,
+    prereq: ["sr", "calculus", "linear"],
+    goal: "Tensors, curvature, geodesics, Einstein equation, black holes, and cosmology.",
+    summary: "General relativity describes gravity as curved spacetime. It requires tensors, geometry, and comfort thinking locally and globally at once.",
+    mustLearn: ["Equivalence principle", "Metrics and spacetime intervals", "Tensors and covariant derivatives", "Geodesics and curvature", "Einstein equation and simple solutions"],
+    books: [
+      bookNote("Hartle, Gravity", "Use as a friendly undergraduate-to-graduate bridge.", "Curved spacetime, geodesics, black holes, cosmology.", "Good first GR book if you are self-studying."),
+      bookNote("Schutz, A First Course in General Relativity", "Use for tensor training.", "Special relativity review, tensor calculus, Einstein equation, applications.", "A standard route into serious GR."),
+      bookNote("Carroll, Spacetime and Geometry", "Use later for graduate depth.", "Differential geometry, curvature, cosmology, black holes.", "Best after tensors are no longer scary.")
+    ],
+    formulas: [
+      formulaNote("ds^2 = g_{\\mu\\nu}dx^\\mu dx^\\nu", "The metric tells how spacetime intervals are measured."),
+      formulaNote("G_{\\mu\\nu}+\\Lambda g_{\\mu\\nu}=\\frac{8\\pi G}{c^4}T_{\\mu\\nu}", "Einstein's equation links spacetime curvature to energy and momentum.")
+    ],
+    examples: ["Interpret a metric coefficient physically before calculating anything.", "Explain why free fall follows geodesics in curved spacetime."],
+    checkpoint: "You are ready when tensors feel like structured bookkeeping for geometry."
+  },
+  {
+    id: "qm",
+    title: "Quantum Mechanics",
+    group: "Modern",
+    level: 12,
+    prereq: ["linear", "de", "mechanics"],
+    goal: "Wavefunctions, operators, Hilbert spaces, spin, hydrogen, perturbation, scattering.",
+    summary: "Quantum mechanics describes reality with probability amplitudes in vector spaces. The subject combines linear algebra, differential equations, Hamiltonians, measurement, and physical interpretation.",
+    mustLearn: ["Wavefunctions and probability density", "Operators, observables, and expectation values", "Time-dependent and time-independent Schrodinger equations", "Infinite well, oscillator, tunneling, hydrogen atom", "Spin, angular momentum, perturbation theory, and scattering basics"],
+    books: [
+      bookNote("Susskind, Quantum Mechanics: The Theoretical Minimum", "Use as the conceptual bridge into real QM.", "States, operators, spin, entanglement, measurement.", "Great before Griffiths if you want the rules in a compact form."),
+      bookNote("Griffiths and Schroeter, Introduction to Quantum Mechanics", "Use as the standard undergraduate core.", "Wavefunction, Schrodinger equation, formalism, spin, identical particles, perturbation, scattering.", "This is the main text for university-level self-study."),
+      bookNote("Shankar, Principles of Quantum Mechanics", "Use for mathematical maturity and advanced depth.", "Vector spaces, postulates, path integrals, symmetries, approximation methods.", "Use after Griffiths or alongside it if your linear algebra is strong.")
+    ],
+    formulas: [
+      formulaNote("i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat H\\Psi", "The time-dependent Schrodinger equation says the Hamiltonian generates time evolution."),
+      formulaNote("\\langle A \\rangle = \\int \\psi^* \\hat A \\psi\\,dx", "An expectation value is the average result predicted for many measurements.")
+    ],
+    examples: ["Normalize the particle-in-a-box wavefunction and explain why boundary conditions quantize energy.", "Compute the probability of finding a particle in the left half of a box."],
+    checkpoint: "You should be able to solve simple systems and explain the physical meaning of the math."
+  },
+  {
+    id: "qft",
+    title: "Quantum Field Theory",
+    group: "Advanced",
+    level: 13,
+    prereq: ["qm", "sr"],
+    goal: "Fields, creation and annihilation operators, path integrals, QED, renormalization ideas.",
+    summary: "Quantum field theory combines quantum mechanics and special relativity. Particles become excitations of fields, interactions are encoded by symmetries and Lagrangians, and calculations often use perturbation theory.",
+    mustLearn: ["Classical field theory and Lagrangian density", "Canonical quantization", "Creation and annihilation operators", "Feynman diagrams and perturbation theory", "Gauge symmetry, QED, and renormalization ideas"],
+    books: [
+      bookNote("Lancaster and Blundell, Quantum Field Theory for the Gifted Amateur", "Use as the approachable first QFT book.", "Classical fields, second quantization, path integrals, QED, renormalization overview.", "Best first pass before a graduate text."),
+      bookNote("Peskin and Schroeder, An Introduction to Quantum Field Theory", "Use later as the graduate standard.", "Relativistic fields, scattering, QED, renormalization, non-Abelian gauge theory.", "Do not rush this before Griffiths/Shankar and relativity."),
+      bookNote("Tong QFT Lecture Notes", "Use as free high-quality notes.", "Canonical quantization, path integrals, symmetries, gauge fields.", "Excellent for checking concepts alongside books.")
+    ],
+    formulas: [
+      formulaNote("\\mathcal L = \\frac{1}{2}(\\partial_\\mu \\phi)(\\partial^\\mu \\phi)-\\frac{1}{2}m^2\\phi^2", "A simple scalar field Lagrangian encodes field dynamics."),
+      formulaNote("[a_p,a_q^\\dagger] = \\delta_{pq}", "Creation and annihilation operators build particle states from field modes.")
+    ],
+    examples: ["Interpret a Feynman diagram as a term in a perturbation expansion, not a literal movie.", "Quantize a collection of harmonic oscillator modes as a first field model."],
+    checkpoint: "You are ready when particles-as-field-excitations is mathematically meaningful."
+  },
+  {
+    id: "particle",
+    title: "Particle Physics",
+    group: "Advanced",
+    level: 14,
+    prereq: ["qft"],
+    goal: "Symmetries, Standard Model, quarks, leptons, gauge bosons, and Higgs overview.",
+    summary: "Particle physics studies the fundamental constituents and interactions of matter. The Standard Model is organized by symmetry, conservation laws, quantum numbers, and scattering evidence.",
+    mustLearn: ["Particles, antiparticles, and quantum numbers", "Conservation laws and symmetries", "Quarks, leptons, gauge bosons, and Higgs", "Feynman diagrams as calculation tools", "Cross sections, decays, and experimental signatures"],
+    books: [
+      bookNote("Griffiths, Introduction to Elementary Particles", "Use as the standard undergraduate particle text.", "Relativistic kinematics, symmetries, quarks, electroweak theory, Standard Model.", "Good after quantum mechanics and special relativity."),
+      bookNote("Thomson, Modern Particle Physics", "Use for a modern experimental-theory bridge.", "Detectors, symmetries, weak interactions, QCD, electroweak unification.", "Helpful if you want current particle-physics language."),
+      bookNote("Particle Data Group Review", "Use as the official reference.", "Particle properties, constants, review articles.", "Use for lookup, not first learning.")
+    ],
+    formulas: [
+      formulaNote("\\sigma \\sim \\frac{\\text{events}}{\\text{luminosity}}", "A cross section measures interaction probability in scattering experiments."),
+      formulaNote("Q = T_3 + \\frac{Y}{2}", "The Gell-Mann-Nishijima-style relation connects charge to weak isospin and hypercharge in symmetry descriptions.")
+    ],
+    examples: ["Use conservation of charge, lepton number, and energy to decide whether a decay is allowed.", "Read a simple collision event and identify incoming and outgoing particles."],
+    checkpoint: "You should connect particle lists to symmetries and experimental signatures."
+  },
+  {
+    id: "condensed",
+    title: "Condensed Matter",
+    group: "Advanced",
+    level: 15,
+    prereq: ["qm", "statmech"],
+    goal: "Crystals, reciprocal space, phonons, bands, semiconductors, superconductivity.",
+    summary: "Condensed matter uses quantum mechanics and statistical mechanics to explain solids and materials. It is the physics of crystals, bands, phonons, semiconductors, magnetism, and superconductivity.",
+    mustLearn: ["Crystal lattices and reciprocal space", "Phonons and lattice vibrations", "Free electron model and band theory", "Semiconductors and Fermi surfaces", "Superconductivity and collective behavior"],
+    books: [
+      bookNote("Kittel, Introduction to Solid State Physics", "Use as the classic undergraduate entry.", "Crystal structure, reciprocal lattice, phonons, electrons, bands, magnetism, superconductivity.", "Broad and standard, with many physical models."),
+      bookNote("Ashcroft and Mermin, Solid State Physics", "Use for deeper theoretical mastery.", "Crystal geometry, electron theory, bands, transport, magnetism.", "More demanding and more complete."),
+      bookNote("Simon, The Oxford Solid State Basics", "Use as a friendly modern bridge.", "Solids, phonons, electrons, bands, semiconductors.", "Excellent before or alongside Kittel.")
+    ],
+    formulas: [
+      formulaNote("\\psi_{nk}(r)=e^{ik\\cdot r}u_{nk}(r)", "Bloch's theorem says crystal electrons are waves modulated by lattice-periodic functions."),
+      formulaNote("E_F", "The Fermi energy marks the highest occupied energy at zero temperature and organizes electron behavior.")
+    ],
+    examples: ["Explain why a periodic lattice creates allowed and forbidden energy bands.", "Compare conductors, semiconductors, and insulators using band gaps."],
+    checkpoint: "You should see materials as many-particle quantum systems with symmetry and statistics."
+  },
+  {
+    id: "computational",
+    title: "Computational Physics",
+    group: "Advanced",
+    level: 16,
+    prereq: ["calculus", "linear"],
+    goal: "Numerical integration, ODE/PDE solvers, eigenproblems, Monte Carlo, simulations.",
+    summary: "Computational physics turns equations into experiments you can run. It is essential for modern physics because many real systems cannot be solved exactly.",
+    mustLearn: ["Python basics, arrays, plotting, and numerical error", "Numerical integration and differentiation", "ODE and PDE solvers", "Eigenvalue problems and matrix methods", "Monte Carlo methods and simulation design"],
+    books: [
+      bookNote("Newman, Computational Physics", "Use as the main self-study text.", "Python computation, integration, ODEs, PDEs, Fourier transforms, Monte Carlo, quantum examples.", "Ideal for building real simulations as you learn."),
+      bookNote("Landau, Paez, and Bordeianu, Computational Physics", "Use for broader project-based practice.", "Numerical methods across mechanics, chaos, quantum, statistical physics.", "Good if you want more programming projects."),
+      bookNote("SciPy / NumPy documentation", "Use as the practical toolkit reference.", "Linear algebra, integration, optimization, sparse matrices, plotting ecosystem.", "Learn enough to implement the equations yourself.")
+    ],
+    formulas: [
+      formulaNote("x_{n+1}=x_n+h f(x_n,t_n)", "Euler's method is the simplest ODE step; it teaches numerical approximation and error."),
+      formulaNote("A\\vec v=\\lambda\\vec v", "Numerical eigenvalue solvers compute allowed modes, energies, and stability directions.")
+    ],
+    examples: ["Simulate projectile motion and compare numerical output to the analytic formula.", "Build a finite-difference particle-in-a-box Hamiltonian and compute energy levels."],
+    checkpoint: "You should be able to code a physics model, test it against a known case, and explain numerical error."
+  }
 ];
+
+function bookNote(title, use, chapters, summary) {
+  return { title, use, chapters, summary };
+}
+
+function formulaNote(latex, meaning) {
+  return { latex, meaning };
+}
 
 const QUESTION_BANK = {
   start: [
@@ -373,7 +718,153 @@ function applyDiagnosticRoadmap() {
   }
 }
 
+function phaseFor(concept) {
+  if (concept.level <= 2) return "Foundation reset";
+  if (concept.level <= 5) return "University math core";
+  if (concept.level <= 9) return "Bachelor physics core";
+  if (concept.level <= 12) return "Modern physics and quantum";
+  return "Advanced research branches";
+}
+
+function listItems(items) {
+  return items.map((item) => `<li>${item}</li>`).join("");
+}
+
+function renderBookItems(books) {
+  return books.map((book) => `
+    <div class="book-item">
+      <h4>${book.title}</h4>
+      <p><strong>Use it for:</strong> ${book.use}</p>
+      <p><strong>Study:</strong> ${book.chapters}</p>
+      <p><strong>Main point:</strong> ${book.summary}</p>
+    </div>
+  `).join("");
+}
+
+function renderFormulaItems(formulas) {
+  return formulas.map((formula) => `
+    <div class="formula-card">
+      <code>\\(${formula.latex}\\)</code>
+      <p>${formula.meaning}</p>
+    </div>
+  `).join("");
+}
+
+function renderLearningPath() {
+  const root = document.getElementById("learningPath");
+  if (!root) return;
+  root.innerHTML = CONCEPTS.map((concept, index) => {
+    const status = conceptStatus(concept);
+    const books = concept.books.slice(0, 2).map((book) => book.title).join(" + ");
+    const must = concept.mustLearn.slice(0, 3).join("; ");
+    return `
+      <article class="learning-step" data-concept="${concept.id}">
+        <div class="step-number">${String(index + 1).padStart(2, "0")}</div>
+        <div class="card step-body ${status}">
+          <div class="tag-row">
+            <span class="tag">${phaseFor(concept)}</span>
+            <span class="tag">${concept.group}</span>
+            <span class="tag">${status}</span>
+          </div>
+          <h3>${concept.title}</h3>
+          <p>${concept.summary}</p>
+          <div class="mini-row">
+            <div class="mini-panel"><strong>Must learn</strong><p>${must}</p></div>
+            <div class="mini-panel"><strong>Main books</strong><p>${books}</p></div>
+            <div class="mini-panel"><strong>Checkpoint</strong><p>${concept.checkpoint}</p></div>
+          </div>
+          <div class="lesson-action-row">
+            <button class="button ghost open-lesson" type="button" data-concept="${concept.id}">Open Full Lesson</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+  root.querySelectorAll(".open-lesson").forEach((button) => {
+    button.addEventListener("click", () => openConceptLesson(button.dataset.concept));
+  });
+}
+
+function openConceptLesson(id) {
+  const concept = CONCEPTS.find((item) => item.id === id);
+  const modal = document.getElementById("conceptModal");
+  const body = document.getElementById("conceptModalBody");
+  if (!concept || !modal || !body) return;
+  document.getElementById("conceptModalTitle").textContent = concept.title;
+  document.getElementById("conceptModalSub").textContent = `${phaseFor(concept)}. Learn this before testing it.`;
+  body.innerHTML = `
+    <div class="lesson-grid">
+      <section class="lesson-panel full">
+        <h3>What This Subject Is About</h3>
+        <p>${concept.summary}</p>
+      </section>
+      <section class="lesson-panel">
+        <h3>What You Must Learn</h3>
+        <ul>${listItems(concept.mustLearn)}</ul>
+      </section>
+      <section class="lesson-panel">
+        <h3>Why It Matters For Quantum Physics</h3>
+        <p>${concept.goal}</p>
+        <p style="margin-top:8px"><strong>Prerequisites:</strong> ${concept.prereq.length ? concept.prereq.map((item) => CONCEPTS.find((c) => c.id === item)?.title || item).join(", ") : "None. Start here."}</p>
+      </section>
+      <section class="lesson-panel full">
+        <h3>University Books And Mini Summaries</h3>
+        <div class="book-list">${renderBookItems(concept.books)}</div>
+      </section>
+      <section class="lesson-panel full">
+        <h3>Formulas To Understand</h3>
+        <p>Do not memorize these blindly. For each formula, know what every symbol means, the units, the assumptions, and one physical example.</p>
+        <div class="formula-list">${renderFormulaItems(concept.formulas)}</div>
+      </section>
+      <section class="lesson-panel">
+        <h3>Worked Example Ideas</h3>
+        <ul>${listItems(concept.examples)}</ul>
+      </section>
+      <section class="lesson-panel">
+        <h3>How To Study This Step</h3>
+        <ol>
+          <li>Read the summary and explain it out loud in plain English.</li>
+          <li>Study the listed book chapters or topics.</li>
+          <li>Rewrite each formula and define every symbol.</li>
+          <li>Work the example ideas without looking at the answer first.</li>
+          <li>Only then move to the final tests section.</li>
+        </ol>
+      </section>
+      <section class="lesson-panel full">
+        <h3>Ready-To-Move-On Checkpoint</h3>
+        <p>${concept.checkpoint}</p>
+        <div class="lesson-action-row">
+          <button class="button" type="button" id="markLessonStudied" data-concept="${concept.id}">Mark Lesson Studied</button>
+          <a class="button secondary" href="#practice" id="jumpToFinalTests">Go To Final Tests</a>
+        </div>
+      </section>
+    </div>
+  `;
+  document.body.classList.add("modal-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.getElementById("markLessonStudied")?.addEventListener("click", () => markConceptMastered(concept.id));
+  document.getElementById("jumpToFinalTests")?.addEventListener("click", closeConceptLesson);
+  if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([body]);
+}
+
+function closeConceptLesson() {
+  const modal = document.getElementById("conceptModal");
+  modal?.setAttribute("aria-hidden", "true");
+  if (document.getElementById("diagnosticModal")?.getAttribute("aria-hidden") !== "false") {
+    document.body.classList.remove("modal-open");
+  }
+}
+
+function markConceptMastered(id) {
+  const p = profile || defaultProfile();
+  p.mastered = [...new Set([...(p.mastered || []), id])];
+  p.roadmap = buildRoadmap(p.currentLevel || 1, CONCEPTS.filter((concept) => !p.mastered.includes(concept.id)).slice(0, 8).map((concept) => concept.id));
+  saveProfile(p);
+  openConceptLesson(id);
+}
+
 function renderDashboard() {
+  if (!document.getElementById("profileTitle")) return;
   const p = profile || defaultProfile();
   const avg = Math.round((p.scores.math + p.scores.physics + p.scores.reasoning) / 3);
   document.getElementById("profileTitle").textContent = profile ? "Your current learning profile" : "Demo profile until intake is taken";
@@ -399,25 +890,24 @@ function renderDashboard() {
 
 function renderCurriculum() {
   const grid = document.getElementById("curriculumGrid");
+  if (!grid) return;
   grid.innerHTML = CONCEPTS.map((concept) => {
     const status = conceptStatus(concept);
     return `
       <article class="card concept-card ${status}" data-state="${status}" data-concept="${concept.id}">
         <h3>${concept.title}</h3>
-        <p>${concept.goal}</p>
+        <p>${concept.summary}</p>
         <div class="tag-row">
           <span class="tag">${concept.group}</span>
           <span class="tag">Level ${concept.level}</span>
         </div>
+        <span class="card-action">Open lesson</span>
       </article>
     `;
   }).join("");
   grid.querySelectorAll(".concept-card").forEach((card) => {
     card.addEventListener("click", () => {
-      const p = profile || defaultProfile();
-      const id = card.dataset.concept;
-      if (!p.mastered.includes(id)) p.mastered.push(id);
-      saveProfile(p);
+      openConceptLesson(card.dataset.concept);
     });
   });
 }
@@ -486,6 +976,7 @@ function tutorExplain() {
 
 function renderTextbooks() {
   const root = document.getElementById("textbookGrid");
+  if (!root) return;
   root.innerHTML = TEXTBOOKS.map((book) => `
     <article class="card">
       <h3>${book.title}</h3>
@@ -713,6 +1204,7 @@ function renderPractice() {
 
 function renderKnowledgeGraph() {
   const root = document.getElementById("knowledgeGraph");
+  if (!root) return;
   root.querySelectorAll(".kg-node").forEach((node) => node.remove());
   const positions = {
     arithmetic: [4, 45], algebra: [19, 22], trig: [20, 66], calculus: [36, 40], linear: [49, 20], de: [53, 67],
@@ -736,6 +1228,7 @@ function renderKnowledgeGraph() {
 }
 
 function renderAll() {
+  renderLearningPath();
   renderDashboard();
   renderCurriculum();
   renderKnowledgeGraph();
@@ -743,7 +1236,7 @@ function renderAll() {
 
 function init() {
   bootFieldCanvas(document.querySelector(".field-canvas"));
-  if (!document.getElementById("openDiagnostic")) return;
+  if (!document.getElementById("learningPath")) return;
   renderTutorSelects();
   renderTextbooks();
   renderAll();
@@ -751,11 +1244,18 @@ function init() {
   drawViz();
   setInterval(() => { drawSim(); drawViz(); }, 80);
 
-  document.getElementById("openDiagnostic").addEventListener("click", () => openDiagnostic(true));
-  document.getElementById("closeDiagnostic").addEventListener("click", closeDiagnostic);
-  document.getElementById("nextQuestion").addEventListener("click", submitDiagnosticAnswer);
-  document.getElementById("applyRoadmap").addEventListener("click", applyDiagnosticRoadmap);
-  document.getElementById("retakeDiagnostic").addEventListener("click", () => startDiagnostic());
+  document.getElementById("openDiagnostic")?.addEventListener("click", () => openDiagnostic(true));
+  document.getElementById("closeDiagnostic")?.addEventListener("click", closeDiagnostic);
+  document.getElementById("nextQuestion")?.addEventListener("click", submitDiagnosticAnswer);
+  document.getElementById("applyRoadmap")?.addEventListener("click", applyDiagnosticRoadmap);
+  document.getElementById("retakeDiagnostic")?.addEventListener("click", () => startDiagnostic());
+  document.getElementById("closeConceptModal")?.addEventListener("click", closeConceptLesson);
+  document.getElementById("conceptModal")?.addEventListener("click", (event) => {
+    if (event.target.id === "conceptModal") closeConceptLesson();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeConceptLesson();
+  });
   document.getElementById("startTutor").addEventListener("click", startTutor);
   document.getElementById("sendReply").addEventListener("click", sendTutorReply);
   document.getElementById("getHint").addEventListener("click", tutorHint);
@@ -765,10 +1265,6 @@ function init() {
   document.getElementById("showPracticeAnswer").addEventListener("click", () => document.getElementById("practiceAnswer").classList.add("show"));
   ["simType", "paramA", "paramB"].forEach((id) => document.getElementById(id).addEventListener("input", drawSim));
   document.getElementById("vizType").addEventListener("input", drawViz);
-
-  if (!profile) {
-    setTimeout(() => openDiagnostic(false), 700);
-  }
 }
 
 document.addEventListener("DOMContentLoaded", init);
