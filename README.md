@@ -8,12 +8,15 @@ The homepage is now learning-first:
 - topic summaries, must-learn lists, formula explanations, examples, and checkpoints
 - mini summaries of standard university books for every major topic
 - click-to-open lesson modules for each timeline step
+- expanded chapter-by-chapter study modules with checkboxes, mini-tests, and resource links
+- separate printable long-form `study-guide.html` for deeper summaries and formula explanations
 - supporting book summaries, tutor prompts, simulations, and visualizations
 - final tests and exam-style practice placed after the learning material
 
 ## Main Page
 
 - `index.html` — main learning timeline and study site
+- `study-guide.html` — detailed printable study guide
 
 ## GitHub Pages
 

@@ -357,6 +357,8 @@ const CONCEPTS = [
   }
 ];
 
+window.PHYSICS101_CONCEPTS = CONCEPTS;
+
 function bookNote(title, use, chapters, summary) {
   return { title, use, chapters, summary };
 }
@@ -752,6 +754,119 @@ function renderFormulaItems(formulas) {
   `).join("");
 }
 
+function deepGuideFor(concept) {
+  return window.PHYSICS101_DEEP_GUIDE?.[concept.id];
+}
+
+function slugify(text) {
+  return String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function loadLessonChecks() {
+  try {
+    return JSON.parse(localStorage.getItem("physics101-lesson-checks-v1") || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function saveLessonCheck(id, checked) {
+  const checks = loadLessonChecks();
+  checks[id] = checked;
+  localStorage.setItem("physics101-lesson-checks-v1", JSON.stringify(checks));
+}
+
+function renderDeepFormulaItems(formulas) {
+  return formulas.map((formula) => `
+    <div class="formula-card">
+      <code>\\(${formula.latex}\\)</code>
+      <p><strong>Symbols:</strong> ${formula.symbols}</p>
+      <p><strong>When to use it:</strong> ${formula.use}</p>
+      <p><strong>Intuition:</strong> ${formula.intuition}</p>
+      <p><strong>Mini example:</strong> ${formula.example}</p>
+    </div>
+  `).join("");
+}
+
+function renderResourceLinks(resources) {
+  return resources.map((resource) => `<a class="resource-link" href="${resource.url}" target="_blank" rel="noreferrer">${resource.label}</a>`).join("");
+}
+
+function renderChecklistItems(items, prefix) {
+  const checks = loadLessonChecks();
+  return items.map((item, index) => {
+    const id = `${prefix}-${index}`;
+    return `
+      <label class="check-row">
+        <input type="checkbox" data-lesson-check="${id}" ${checks[id] ? "checked" : ""}>
+        <span>${item}</span>
+      </label>
+    `;
+  }).join("");
+}
+
+function renderDeepChapters(concept) {
+  const guide = deepGuideFor(concept);
+  if (!guide) return "";
+  return `
+    <section class="lesson-panel full chapter-plan">
+      <h3>Chapter-By-Chapter Study Plan</h3>
+      <p>${guide.studyAdvice}</p>
+      <div class="chapter-plan-list">
+        ${guide.chapters.map((chapter, index) => {
+          const prefix = `${concept.id}-${slugify(chapter.title)}`;
+          return `
+            <details class="deep-chapter" ${index === 0 ? "open" : ""}>
+              <summary>
+                <span>Chapter ${index + 1}</span>
+                <strong>${chapter.title}</strong>
+                <em>${chapter.book}</em>
+              </summary>
+              <div class="deep-chapter-body">
+                <div class="chapter-columns">
+                  <div>
+                    <h4>What This Chapter Teaches</h4>
+                    <p>${chapter.summary}</p>
+                    <h4>Main Concepts</h4>
+                    <ul>${listItems(chapter.concepts)}</ul>
+                    <h4>Why It Matters</h4>
+                    <p>${chapter.why}</p>
+                    <h4>After This Chapter You Should Be Able To</h4>
+                    <p>${chapter.outcomes}</p>
+                  </div>
+                  <div>
+                    <h4>Essential</h4>
+                    <div class="check-list">${renderChecklistItems(chapter.essential, `${prefix}-essential`)}</div>
+                    <h4>Optional Later</h4>
+                    <ul>${listItems(chapter.optional)}</ul>
+                    <h4>Checkpoint</h4>
+                    <div class="check-list">${renderChecklistItems(chapter.checkpoints, `${prefix}-checkpoint`)}</div>
+                  </div>
+                </div>
+                <h4>Important Formulas</h4>
+                <div class="formula-list">${renderDeepFormulaItems(chapter.formulas)}</div>
+                <div class="chapter-columns">
+                  <div>
+                    <h4>Mini Self-Test</h4>
+                    <ol>${listItems(chapter.selfTest)}</ol>
+                  </div>
+                  <div>
+                    <h4>Study Resources</h4>
+                    <div class="resource-list">${renderResourceLinks(chapter.resources)}</div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          `;
+        }).join("")}
+      </div>
+      <div class="lesson-action-row">
+        <a class="button secondary" href="study-guide.html#${concept.id}">Open Long Study Guide For ${concept.title}</a>
+      </div>
+    </section>
+  `;
+}
+
 function renderLearningPath() {
   const root = document.getElementById("learningPath");
   if (!root) return;
@@ -805,6 +920,7 @@ function openConceptLesson(id) {
         <p>These are the topic-specific books or university resources to use for this lesson. Read the listed chapters/topics, then do problems from the same section before moving forward.</p>
         <div class="book-list">${renderBookItems(concept.books)}</div>
       </section>
+      ${renderDeepChapters(concept)}
       <section class="lesson-panel">
         <h3>What You Must Learn</h3>
         <ul>${listItems(concept.mustLearn)}</ul>
@@ -847,6 +963,9 @@ function openConceptLesson(id) {
   modal.setAttribute("aria-hidden", "false");
   document.getElementById("markLessonStudied")?.addEventListener("click", () => markConceptMastered(concept.id));
   document.getElementById("jumpToFinalTests")?.addEventListener("click", closeConceptLesson);
+  body.querySelectorAll("[data-lesson-check]").forEach((checkbox) => {
+    checkbox.addEventListener("change", () => saveLessonCheck(checkbox.dataset.lessonCheck, checkbox.checked));
+  });
   if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([body]);
 }
 
