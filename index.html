@@ -3,201 +3,337 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quantum University AI</title>
-  <meta name="description" content="AI-powered physics and quantum physics learning platform blueprint.">
+  <title>Physics101 AI Study University</title>
+  <meta name="description" content="Interactive AI-style physics and quantum physics study platform with diagnostic intake, adaptive roadmap, tutor, simulations, practice, textbook intelligence, and knowledge graph.">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="index.html">Quantum University AI</a>
+      <a class="brand" href="#top">Physics101 AI</a>
       <div class="nav-links">
-        <a class="active" href="index.html">Vision</a>
-        <a href="platform.html">Platform</a>
-        <a href="architecture.html">Architecture</a>
-        <a href="intelligence.html">AI Systems</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="sitemap.html">Sitemap</a>
-        <a href="quantum-curriculum.html">Study Hub</a>
+        <a href="#diagnostic">Intake</a>
+        <a href="#dashboard">Roadmap</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#tutor">Tutor</a>
+        <a href="#textbooks">Textbooks</a>
+        <a href="#simulations">Simulations</a>
+        <a href="#practice">Practice</a>
+        <a href="#graph">Graph</a>
+        <a href="#architecture">Architecture</a>
       </div>
     </nav>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
       <canvas class="field-canvas" aria-hidden="true"></canvas>
       <div class="hero-content">
-        <span class="eyebrow">Futuristic physics university, powered by adaptive AI</span>
-        <h1>Quantum University AI</h1>
-        <p class="hero-copy">A complete web platform that diagnoses a learner’s mathematical and physics readiness, builds a personalized curriculum, teaches with Socratic AI tutoring, visualizes abstract physics, and unlocks concepts through mastery.</p>
+        <span class="eyebrow">Interactive study platform, not a brochure</span>
+        <h1>Learn Physics From Zero To Quantum Research</h1>
+        <p class="hero-copy">Start with an adaptive intake test. Physics101 estimates your math level, physics intuition, reasoning style, and learning preferences, then builds a personalized roadmap through the full physics curriculum.</p>
         <div class="actions">
-          <a class="button" href="platform.html">Explore The Platform</a>
-          <a class="button secondary" href="architecture.html">View Technical Architecture</a>
-          <a class="button secondary" href="quantum-curriculum.html">Open Current Study Hub</a>
+          <button class="button" id="openDiagnostic" type="button">Take Intake Test</button>
+          <a class="button secondary" href="#dashboard">View Dashboard</a>
+          <a class="button secondary" href="quantum-curriculum.html">Open Long Study Hub</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="vision">
+    <section class="section" id="diagnostic">
       <div class="section-head">
-        <h2>Product Vision</h2>
-        <p>The platform is not a video library. It is an adaptive physics university: diagnostic, curriculum, tutor, simulator, textbook guide, knowledge graph, assessment engine, and research bridge in one system.</p>
+        <h2>AI Diagnostic Intake</h2>
+        <p>The first experience is a popup diagnostic. It adapts as you answer: weak algebra sends you to prerequisite checks; strong answers unlock calculus, linear algebra, and quantum-readiness questions.</p>
       </div>
       <div class="grid four">
-        <article class="card metric accent-teal">
-          <span>Entry point</span>
-          <strong>Beginner</strong>
-          <p>Arithmetic, algebra, functions, trigonometry, and study habits for learners without a physics background.</p>
+        <article class="card accent-teal">
+          <h3>Mathematics Level</h3>
+          <p>Arithmetic, algebra, trigonometry, calculus, linear algebra, differential equations, probability, and symbolic fluency.</p>
         </article>
-        <article class="card metric accent-gold">
-          <span>Core path</span>
-          <strong>BSc</strong>
-          <p>Calculus-based mechanics, E&amp;M, thermodynamics, statistical mechanics, relativity, and quantum mechanics.</p>
+        <article class="card accent-gold">
+          <h3>Physics Understanding</h3>
+          <p>Forces, energy, fields, waves, thermal reasoning, relativity, and quantum conceptual readiness.</p>
         </article>
-        <article class="card metric accent-violet">
-          <span>Advanced path</span>
-          <strong>MSc</strong>
-          <p>General relativity, quantum field theory, particle physics, condensed matter, and computational physics.</p>
+        <article class="card accent-violet">
+          <h3>Reasoning Ability</h3>
+          <p>Pattern recognition, proportional reasoning, abstraction tolerance, units, limiting cases, and explanation quality.</p>
         </article>
-        <article class="card metric accent-red">
-          <span>Learning engine</span>
-          <strong>AI</strong>
-          <p>Diagnostic testing, Socratic tutoring, adaptive practice, memory of weaknesses, and mastery-based unlocking.</p>
+        <article class="card accent-red">
+          <h3>Learning Style</h3>
+          <p>Visual, derivation-first, analogy-first, problem-first, or research-first learning preferences.</p>
         </article>
       </div>
     </section>
 
-    <div class="panel-band">
-      <section class="section" id="system">
-        <div class="section-head">
-          <h2>The Learning System</h2>
-          <p>Every part of the product feeds the next: diagnostic results shape the roadmap, tutoring updates mastery, practice exposes gaps, and the graph unlocks the next concept only when the learner is ready.</p>
-        </div>
-        <div class="graph card" aria-label="Concept dependency graph preview">
-          <svg aria-hidden="true" viewBox="0 0 1000 420" preserveAspectRatio="none">
-            <path d="M110 210 C210 80 260 95 330 250 S520 110 590 120 S720 290 820 120" fill="none" stroke="rgba(45,212,191,.35)" stroke-width="3"/>
-            <path d="M110 210 C270 300 330 320 440 265 S620 210 735 260 S820 160 900 120" fill="none" stroke="rgba(243,201,105,.26)" stroke-width="3"/>
-          </svg>
-          <div class="node">Arithmetic</div>
-          <div class="node">Calculus</div>
-          <div class="node">Mechanics</div>
-          <div class="node">Linear Algebra</div>
-          <div class="node">Quantum Mechanics</div>
-          <div class="node">QFT Research</div>
-        </div>
-      </section>
-    </div>
-
-    <section class="section" id="pillars">
+    <section class="section" id="dashboard">
       <div class="section-head">
-        <h2>Core Product Pillars</h2>
-        <p>The website is designed as a serious, gamified-but-not-childish academic environment: a place where a motivated learner can move from zero to research literacy.</p>
+        <h2>Personal Roadmap</h2>
+        <p>Your roadmap updates after the diagnostic and as you mark concepts mastered. It is stored locally in this static prototype.</p>
       </div>
-      <div class="grid three">
-        <article class="card accent-teal">
-          <h3>AI Diagnostic Intake</h3>
-          <p>Adaptive intake measures arithmetic, algebra, calculus readiness, physics intuition, abstract reasoning, and preferred learning style.</p>
-          <ul class="feature-list">
-            <li>Item response theory style difficulty adjustment.</li>
-            <li>Concept graph placement and prerequisite gap detection.</li>
-            <li>Personalized roadmap with time estimates.</li>
+      <div class="dashboard">
+        <article class="card profile-panel">
+          <h3 id="profileTitle">No diagnostic yet</h3>
+          <p id="profileSummary">Take the intake test to generate your personalized curriculum route.</p>
+          <div class="tag-row" id="profileTags">
+            <span class="tag">Waiting for intake</span>
+          </div>
+          <div class="progressbar"><div class="progressfill" id="masteryFill"></div></div>
+        </article>
+        <article class="card">
+          <h3>Detected Weakness Memory</h3>
+          <p>The tutor and practice system will use these weaknesses when generating hints and review tasks.</p>
+          <ul class="list" id="weaknessList">
+            <li>No weaknesses recorded yet.</li>
           </ul>
         </article>
-        <article class="card accent-gold">
-          <h3>Complete Curriculum</h3>
-          <p>From arithmetic foundations to quantum field theory, particle physics, condensed matter, and computational physics.</p>
-          <ul class="feature-list">
-            <li>Mastery gates between dependent topics.</li>
-            <li>Textbook-aligned chapter intelligence.</li>
-            <li>Exam and derivation checkpoints.</li>
-          </ul>
-        </article>
-        <article class="card accent-violet">
-          <h3>Adaptive Tutor</h3>
-          <p>The AI tutor asks questions, generates hints, detects misconceptions, and remembers recurring weaknesses.</p>
-          <ul class="feature-list">
-            <li>Socratic first, direct answer later.</li>
-            <li>Multiple difficulty levels per explanation.</li>
-            <li>Weakness memory and review scheduling.</li>
-          </ul>
-        </article>
-        <article class="card accent-blue">
-          <h3>Simulation Studio</h3>
-          <p>Interactive simulations for mechanics, waves, electromagnetism, relativity, quantum mechanics, and particle physics.</p>
-          <ul class="feature-list">
-            <li>Parameter sliders and real-time graphs.</li>
-            <li>Three.js/WebGPU for 3D scenes.</li>
-            <li>Python/WASM numerical kernels for advanced models.</li>
-          </ul>
-        </article>
-        <article class="card accent-green">
-          <h3>Knowledge Graph</h3>
-          <p>Every concept has prerequisites, dependencies, formulas, misconceptions, examples, and assessments.</p>
-          <ul class="feature-list">
-            <li>Dynamic unlocking based on mastery.</li>
-            <li>Graph-based recommendations.</li>
-            <li>Search across concepts, books, derivations, and problems.</li>
-          </ul>
-        </article>
-        <article class="card accent-red">
-          <h3>Practice Engine</h3>
-          <p>AI-generated quizzes, derivation exercises, exam-style problems, conceptual questions, and challenge paths.</p>
-          <ul class="feature-list">
-            <li>Hint ladders instead of instant answers.</li>
-            <li>Rubric-based written solution grading.</li>
-            <li>Olympiad and research-prep challenge modes.</li>
-          </ul>
-        </article>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Your Generated Roadmap</h3>
+        <div class="roadmap-list" id="roadmapList"></div>
       </div>
     </section>
 
     <section class="section" id="curriculum">
       <div class="section-head">
-        <h2>Curriculum Spine</h2>
-        <p>The curriculum is a dependency chain, not a menu. Learners can browse freely, but mastery unlocks serious progression.</p>
+        <h2>Complete Physics Curriculum</h2>
+        <p>Every concept has prerequisites, lesson goals, formulas, simulations, textbook links, and mastery checks. Locked concepts open when prerequisites are strong enough.</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <strong>Foundation</strong>
-          <div>
-            <h3>Arithmetic, Algebra, Trigonometry</h3>
-            <p>Numbers, units, equations, functions, graphs, trigonometric waves, exponentials, logarithms, probability basics.</p>
+      <div class="curriculum-grid" id="curriculumGrid"></div>
+    </section>
+
+    <section class="section" id="tutor">
+      <div class="section-head">
+        <h2>Adaptive AI Tutor</h2>
+        <p>This static prototype demonstrates the tutor behavior: Socratic questions first, hints before answers, difficulty adjustment, and weakness-aware responses. In production this connects to an LLM backend.</p>
+      </div>
+      <div class="workspace">
+        <aside class="card control-stack">
+          <div class="field">
+            <label for="tutorConcept">Concept</label>
+            <select id="tutorConcept"></select>
           </div>
-        </div>
-        <div class="timeline-item">
-          <strong>Mathematics</strong>
-          <div>
-            <h3>Calculus, Linear Algebra, Differential Equations</h3>
-            <p>Derivatives, integrals, vector spaces, eigenvalues, ODEs, PDEs, Fourier transforms, tensors, complex numbers.</p>
+          <div class="field">
+            <label for="tutorLevel">Explanation level</label>
+            <select id="tutorLevel">
+              <option value="intuitive">Intuitive</option>
+              <option value="calculus">Calculus-based</option>
+              <option value="formal">Formal university</option>
+              <option value="research">Research bridge</option>
+            </select>
           </div>
-        </div>
-        <div class="timeline-item">
-          <strong>Classical Physics</strong>
-          <div>
-            <h3>Mechanics, E&amp;M, Thermodynamics, Statistical Mechanics</h3>
-            <p>Forces, energy, fields, Maxwell equations, entropy, ensembles, probability, and the classical models quantum theory replaces.</p>
+          <button class="button" id="startTutor" type="button">Start Socratic Lesson</button>
+          <button class="button secondary" id="getHint" type="button">Give Me A Hint</button>
+          <button class="button secondary" id="explainAnswer" type="button">Explain Fully</button>
+        </aside>
+        <article class="card">
+          <div class="chat-log" id="chatLog"></div>
+          <div class="field" style="margin-top:12px">
+            <label for="learnerReply">Your reply</label>
+            <textarea id="learnerReply" placeholder="Try answering the tutor's question. The system will respond based on your concept and level."></textarea>
           </div>
-        </div>
-        <div class="timeline-item">
-          <strong>Modern Physics</strong>
-          <div>
-            <h3>Special Relativity, General Relativity, Quantum Mechanics</h3>
-            <p>Spacetime, tensors, curvature, wavefunctions, Hilbert spaces, operators, spin, angular momentum, hydrogen, and perturbation theory.</p>
+          <div class="actions">
+            <button class="button ghost" id="sendReply" type="button">Send Reply</button>
           </div>
-        </div>
-        <div class="timeline-item">
-          <strong>Research Bridge</strong>
-          <div>
-            <h3>QFT, Particle Physics, Condensed Matter, Computation</h3>
-            <p>Fields, Feynman diagrams, Standard Model foundations, crystals, band theory, superconductivity, simulation, and numerical physics.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="textbooks">
+      <div class="section-head">
+        <h2>Physics Textbook Intelligence</h2>
+        <p>Structured study notes for major university texts. Each chapter entry includes key concepts, intuition, derivations, formulas, mistakes, examples, practice, and visuals.</p>
+      </div>
+      <div class="textbook-grid" id="textbookGrid"></div>
+    </section>
+
+    <section class="section" id="simulations">
+      <div class="section-head">
+        <h2>Interactive Simulations</h2>
+        <p>Change parameters, predict behavior, run the visualization, then explain what changed. These are lightweight browser simulations for the live prototype.</p>
+      </div>
+      <div class="lab">
+        <aside class="card control-stack">
+          <div class="field">
+            <label for="simType">Simulation</label>
+            <select id="simType">
+              <option value="mechanics">Mechanics: projectile motion</option>
+              <option value="waves">Waves: interference</option>
+              <option value="em">Electromagnetism: field lines</option>
+              <option value="relativity">Relativity: light cone</option>
+              <option value="quantum">Quantum: particle in a box</option>
+              <option value="particle">Particle physics: collision event</option>
+            </select>
           </div>
+          <div class="field">
+            <label for="paramA">Parameter A</label>
+            <input id="paramA" type="range" min="0" max="100" value="55">
+          </div>
+          <div class="field">
+            <label for="paramB">Parameter B</label>
+            <input id="paramB" type="range" min="0" max="100" value="45">
+          </div>
+          <p id="simExplanation">Choose a simulation to see what the controls mean.</p>
+        </aside>
+        <div class="canvas-panel">
+          <canvas id="simCanvas" width="900" height="520" aria-label="Physics simulation canvas"></canvas>
         </div>
       </div>
     </section>
+
+    <section class="section" id="visualizations">
+      <div class="section-head">
+        <h2>Visualization System</h2>
+        <p>Animated mathematical visualizations make abstract structures visible: Fourier transforms, eigenvectors, quantum probabilities, tensors, vectors, and spacetime.</p>
+      </div>
+      <div class="lab">
+        <aside class="card control-stack">
+          <div class="field">
+            <label for="vizType">Visualization</label>
+            <select id="vizType">
+              <option value="fourier">Fourier transform animation</option>
+              <option value="eigen">Eigenvector and eigenvalue tool</option>
+              <option value="probability">Quantum probability visualizer</option>
+              <option value="spacetime">3D-style spacetime grid</option>
+              <option value="tensor">Tensor and vector deformation</option>
+            </select>
+          </div>
+          <p id="vizExplanation">Visualizations connect equations to geometry.</p>
+        </aside>
+        <div class="canvas-panel">
+          <canvas id="vizCanvas" width="900" height="520" aria-label="Math visualization canvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="practice">
+      <div class="section-head">
+        <h2>AI-Generated Practice System</h2>
+        <p>Generate adaptive quizzes, exam-style problems, conceptual prompts, Olympiad-level challenges, and derivation exercises based on your profile.</p>
+      </div>
+      <div class="workspace">
+        <aside class="card control-stack">
+          <div class="field">
+            <label for="practiceType">Problem type</label>
+            <select id="practiceType">
+              <option value="adaptive">Adaptive quiz</option>
+              <option value="exam">Exam-style problem</option>
+              <option value="conceptual">Conceptual question</option>
+              <option value="olympiad">Olympiad-level challenge</option>
+              <option value="derivation">Derivation exercise</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="practiceConcept">Concept</label>
+            <select id="practiceConcept"></select>
+          </div>
+          <button class="button" id="generateProblem" type="button">Generate Problem</button>
+          <button class="button secondary" id="showPracticeHint" type="button">Show Hint</button>
+          <button class="button secondary" id="showPracticeAnswer" type="button">Show Answer</button>
+        </aside>
+        <article class="card practice-question">
+          <h3 id="practiceTitle">Practice generator ready</h3>
+          <p id="practicePrompt">Choose a concept and generate a problem.</p>
+          <div class="answer-box" id="practiceHint"></div>
+          <div class="answer-box" id="practiceAnswer"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="graph">
+      <div class="section-head">
+        <h2>Knowledge Graph</h2>
+        <p>The graph shows how concepts connect. Mastered nodes unlock dependent ideas. The production system would use this graph to route lessons, quizzes, and tutor explanations.</p>
+      </div>
+      <div class="graph-wrap">
+        <div class="card knowledge-graph" id="knowledgeGraph">
+          <svg aria-hidden="true" viewBox="0 0 1000 520" preserveAspectRatio="none">
+            <path d="M80 250 C190 120 250 135 330 210 S490 350 570 220 S720 115 870 230" fill="none" stroke="rgba(45,212,191,.32)" stroke-width="4"/>
+            <path d="M80 250 C230 360 320 365 430 305 S590 260 705 330 S800 260 870 230" fill="none" stroke="rgba(243,201,105,.22)" stroke-width="4"/>
+            <path d="M330 210 C390 80 520 80 570 220" fill="none" stroke="rgba(155,140,255,.25)" stroke-width="3"/>
+          </svg>
+        </div>
+        <article class="card">
+          <h3 id="graphTitle">Click a concept</h3>
+          <p id="graphDetails">Select a node to see prerequisites, unlock rule, and study goal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="architecture">
+      <div class="section-head">
+        <h2>Technical Architecture</h2>
+        <p>This live page is static. The production AI platform would use the architecture below to support real accounts, real AI, vector search, and adaptive mastery.</p>
+      </div>
+      <div class="grid three">
+        <article class="card accent-teal"><h3>Frontend Stack</h3><p>Next.js, TypeScript, React, Tailwind/design tokens, Three.js, D3, KaTeX/MathJax, WebGPU-ready simulation panels.</p></article>
+        <article class="card accent-gold"><h3>Backend Stack</h3><p>FastAPI or NestJS, PostgreSQL, Redis queues, object storage, background workers, content ingestion, grading services.</p></article>
+        <article class="card accent-violet"><h3>Database Design</h3><p>Users, profiles, concepts, concept_edges, mastery_records, diagnostics, lessons, problems, attempts, textbook_chapters, tutor_sessions.</p></article>
+        <article class="card accent-blue"><h3>AI Architecture</h3><p>Planner, retriever, Socratic tutor, problem generator, solution grader, misconception detector, roadmap generator, evaluation harness.</p></article>
+        <article class="card accent-green"><h3>Vector Search</h3><p>pgvector for MVP; hybrid retrieval across concept nodes, textbook summaries, derivations, formulas, examples, and user mistake memory.</p></article>
+        <article class="card accent-red"><h3>Simulation Engines</h3><p>Canvas for 2D, Three.js for 3D, WebAssembly/Python kernels for numerical models, sandboxed notebooks for advanced computation.</p></article>
+      </div>
+      <div class="table-wrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th>System</th><th>Production API</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Diagnostic</td><td>POST /api/diagnostics/start, POST /api/diagnostics/:id/answer</td><td>Adaptive intake, placement, roadmap generation.</td></tr>
+            <tr><td>Tutor</td><td>POST /api/tutor/message</td><td>Socratic responses, hints, misconception detection.</td></tr>
+            <tr><td>Practice</td><td>POST /api/practice/generate, POST /api/practice/grade</td><td>Problems, rubrics, grading, adaptive next steps.</td></tr>
+            <tr><td>Knowledge Graph</td><td>GET /api/concepts/:slug, POST /api/mastery/update</td><td>Prerequisites, unlocking, mastery state.</td></tr>
+            <tr><td>Textbooks</td><td>GET /api/textbooks/:id/chapters</td><td>Structured summaries, derivations, examples, mistakes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre style="margin-top:14px"><code>Scalability plan:
+1. MVP: static frontend + hosted API + PostgreSQL/pgvector.
+2. Growth: split AI orchestration, ingestion, grading, analytics workers.
+3. Institution: SSO, roles, cohorts, LMS export, audit logs.
+4. Research: paper ingestion, notebook sandboxes, GPU simulation workers.</code></pre>
+    </section>
   </main>
 
+  <div class="modal" id="diagnosticModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="diagnosticTitle">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <h3 id="diagnosticTitle">Physics101 Intake Test</h3>
+          <p id="diagnosticSub">Answer honestly. The goal is placement, not judgment.</p>
+        </div>
+        <button class="close-button" id="closeDiagnostic" type="button" aria-label="Close diagnostic">x</button>
+      </div>
+      <div class="modal-body">
+        <div class="diagnostic-progress">
+          <p><strong id="diagStep">Question 1</strong> <span id="diagCategory"></span></p>
+          <div class="progressbar"><div class="progressfill" id="diagFill"></div></div>
+        </div>
+        <div class="question-card" id="questionCard">
+          <h3 id="questionText"></h3>
+          <div class="choice-grid" id="choiceGrid"></div>
+          <div class="actions">
+            <button class="button" id="nextQuestion" type="button">Submit Answer</button>
+          </div>
+        </div>
+        <div class="result-panel" id="diagnosticResult">
+          <h3>Your personalized roadmap is ready</h3>
+          <p id="resultSummary"></p>
+          <div class="actions">
+            <button class="button" id="applyRoadmap" type="button">Apply Roadmap</button>
+            <button class="button secondary" id="retakeDiagnostic" type="button">Retake Test</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
-    GitHub Pages-ready static product site. Current deep curriculum prototype: <a href="quantum-curriculum.html">Quantum Curriculum Study Hub</a>.
+    Physics101 AI is a live static prototype of a future AI-powered physics university. Your diagnostic, weaknesses, and mastery state are stored locally in this browser.
   </footer>
   <script src="assets/app.js"></script>
 </body>
