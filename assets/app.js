@@ -735,12 +735,12 @@ function listItems(items) {
 function renderBookItems(books) {
   return books.map((book, index) => `
     <div class="book-item">
-      <div class="book-kicker">Book ${index + 1}</div>
+      <div class="book-kicker">University source ${index + 1}</div>
       <h4>${book.title}</h4>
-      <p><strong>Why read it:</strong> ${book.use}</p>
-      <p><strong>Chapters/topics to study:</strong> ${book.chapters}</p>
-      <p><strong>Mini summary:</strong> ${book.summary}</p>
-      <p><strong>What to extract from it:</strong> definitions, solved examples, problem-solving patterns, and the formulas that connect to this lesson.</p>
+      <p><strong>How this source teaches it:</strong> ${book.use}</p>
+      <p><strong>Topics covered here:</strong> ${book.chapters}</p>
+      <p><strong>Built-in summary:</strong> ${book.summary}</p>
+      <p><strong>What you need from it:</strong> definitions, solved-example patterns, and the formulas that connect to this lesson. The interactive lesson above teaches the core material directly on this website.</p>
     </div>
   `).join("");
 }
@@ -790,6 +790,150 @@ function renderDeepFormulaItems(formulas) {
 
 function renderResourceLinks(resources) {
   return resources.map((resource) => `<a class="resource-link" href="${resource.url}" target="_blank" rel="noreferrer">${resource.label}</a>`).join("");
+}
+
+function allDeepFormulas(concept) {
+  const guide = deepGuideFor(concept);
+  const chapterFormulas = guide ? guide.chapters.flatMap((chapter) => chapter.formulas) : [];
+  const conceptFormulas = (concept.formulas || []).map((formula) => ({
+    latex: formula.latex,
+    symbols: "Use the chapter notes below to define each symbol and unit.",
+    use: formula.meaning,
+    intuition: formula.meaning,
+    example: concept.examples?.[0] || "Apply it to a simple numerical case, then check units."
+  }));
+  return [...chapterFormulas, ...conceptFormulas].slice(0, 6);
+}
+
+function allSelfTests(concept) {
+  const guide = deepGuideFor(concept);
+  const tests = guide ? guide.chapters.flatMap((chapter) => chapter.selfTest) : [];
+  return [...tests, ...(concept.examples || [])].slice(0, 8);
+}
+
+function allEssentials(concept) {
+  const guide = deepGuideFor(concept);
+  const essentials = guide ? guide.chapters.flatMap((chapter) => chapter.essential) : [];
+  return [...concept.mustLearn, ...essentials].filter((item, index, arr) => arr.indexOf(item) === index).slice(0, 12);
+}
+
+function answerGuideFor(concept, question, index) {
+  const formulas = allDeepFormulas(concept);
+  const formula = formulas[index % Math.max(1, formulas.length)];
+  return `A strong answer should define the known quantity, name the principle being used, write the relevant equation${formula ? ` such as \\(${formula.latex}\\)` : ""}, explain the symbols, check units, and interpret the result in words. For this topic, connect your answer back to: ${concept.goal}`;
+}
+
+function renderLessonSlides(concept) {
+  const guide = deepGuideFor(concept);
+  const chapters = guide?.chapters || [];
+  const formulas = allDeepFormulas(concept);
+  const selfTests = allSelfTests(concept);
+  const essentials = allEssentials(concept);
+  const firstFormula = formulas[0];
+  const secondFormula = formulas[1] || firstFormula;
+  const chapterSummary = chapters.map((chapter, index) => `
+    <div class="inline-note">
+      <strong>Chapter ${index + 1}: ${chapter.title}</strong>
+      <p>${chapter.summary}</p>
+      <p><strong>Why it matters:</strong> ${chapter.why}</p>
+    </div>
+  `).join("");
+
+  return `
+    <section class="lesson-player" data-lesson-player>
+      <div class="lesson-player-head">
+        <div>
+          <h3>Interactive Lesson: ${concept.title}</h3>
+          <p>Work through this sequence inside the website. No outside book is required to understand the core lesson.</p>
+        </div>
+        <div class="lesson-progress" data-lesson-progress>1 / 6</div>
+      </div>
+      <div class="lesson-tabs" role="tablist" aria-label="Lesson steps">
+        ${["Explain", "Formula", "Apply Formula", "Explain Formula", "Theory", "Question"].map((label, index) => `
+          <button class="lesson-tab ${index === 0 ? "active" : ""}" type="button" data-lesson-tab="${index}">${index + 1}. ${label}</button>
+        `).join("")}
+      </div>
+      <div class="lesson-slides">
+        <article class="lesson-slide active" data-lesson-slide="0">
+          <h4>1. Explain The Topic</h4>
+          <p>${concept.summary}</p>
+          <p><strong>In plain English:</strong> ${concept.title} is a tool for understanding ${concept.goal.toLowerCase()}</p>
+          <h4>Built-In Chapter Notes</h4>
+          ${chapterSummary || `<p>${concept.summary}</p>`}
+        </article>
+        <article class="lesson-slide" data-lesson-slide="1">
+          <h4>2. Which Formulas Matter</h4>
+          <p>These are the formulas you should recognize first. Do not memorize them as symbols; learn what each part measures and when the formula is allowed.</p>
+          <div class="formula-list">${renderDeepFormulaItems(formulas)}</div>
+        </article>
+        <article class="lesson-slide" data-lesson-slide="2">
+          <h4>3. Apply The Formula</h4>
+          ${firstFormula ? `
+            <div class="worked-example">
+              <h4>Worked Pattern</h4>
+              <p><strong>Formula:</strong> \\(${firstFormula.latex}\\)</p>
+              <p><strong>How to use it:</strong> ${firstFormula.use}</p>
+              <p><strong>Example:</strong> ${firstFormula.example}</p>
+              <ol>
+                <li>List what is known and what is unknown.</li>
+                <li>Write the formula before substituting numbers.</li>
+                <li>Substitute values with units attached.</li>
+                <li>Simplify carefully and check the units.</li>
+                <li>Explain what the result means physically.</li>
+              </ol>
+            </div>
+          ` : ""}
+          <h4>Your Practice Examples</h4>
+          <ul>${listItems(concept.examples)}</ul>
+        </article>
+        <article class="lesson-slide" data-lesson-slide="3">
+          <h4>4. Explain The Formula</h4>
+          ${secondFormula ? `
+            <div class="formula-card">
+              <code>\\(${secondFormula.latex}\\)</code>
+              <p><strong>Symbols:</strong> ${secondFormula.symbols}</p>
+              <p><strong>When and why it is used:</strong> ${secondFormula.use}</p>
+              <p><strong>Intuition:</strong> ${secondFormula.intuition}</p>
+              <p><strong>Example:</strong> ${secondFormula.example}</p>
+            </div>
+          ` : "<p>This topic is more conceptual at this stage. Focus on definitions, diagrams, and problem setup.</p>"}
+          <p><strong>Formula habit:</strong> before solving, say what every symbol means, what units it has, and what assumptions make the formula valid.</p>
+        </article>
+        <article class="lesson-slide" data-lesson-slide="4">
+          <h4>5. Theory You Need</h4>
+          <p>${guide?.studyAdvice || concept.goal}</p>
+          <div class="chapter-columns">
+            <div>
+              <h4>Essential</h4>
+              <ul>${listItems(essentials)}</ul>
+            </div>
+            <div>
+              <h4>Optional Later</h4>
+              <ul>${listItems(chapters.flatMap((chapter) => chapter.optional).slice(0, 8)) || "<li>Advanced extensions can wait until the core calculations are stable.</li>"}</ul>
+            </div>
+          </div>
+          <p><strong>Why this theory matters:</strong> ${concept.goal}</p>
+        </article>
+        <article class="lesson-slide" data-lesson-slide="5">
+          <h4>6. Questions Before You Move On</h4>
+          <p>Answer in your own words first. Then open the answer guide and compare your reasoning.</p>
+          <div class="mini-test-list">
+            ${selfTests.slice(0, 5).map((question, index) => `
+              <details class="mini-test">
+                <summary>Question ${index + 1}: ${question}</summary>
+                <textarea placeholder="Write your answer here before opening the guide."></textarea>
+                <div class="answer-box show">${answerGuideFor(concept, question, index)}</div>
+              </details>
+            `).join("")}
+          </div>
+        </article>
+      </div>
+      <div class="lesson-nav">
+        <button class="button secondary" type="button" data-lesson-prev disabled>< Back</button>
+        <button class="button" type="button" data-lesson-next>Next ></button>
+      </div>
+    </section>
+  `;
 }
 
 function renderChecklistItems(items, prefix) {
@@ -851,7 +995,7 @@ function renderDeepChapters(concept) {
                     <ol>${listItems(chapter.selfTest)}</ol>
                   </div>
                   <div>
-                    <h4>Study Resources</h4>
+                    <h4>Optional Outside References</h4>
                     <div class="resource-list">${renderResourceLinks(chapter.resources)}</div>
                   </div>
                 </div>
@@ -915,9 +1059,10 @@ function openConceptLesson(id) {
         <h3>What This Subject Is About</h3>
         <p>${concept.summary}</p>
       </section>
+      ${renderLessonSlides(concept)}
       <section class="lesson-panel full book-spotlight">
-        <h3>Books To Read For This Topic</h3>
-        <p>These are the topic-specific books or university resources to use for this lesson. Read the listed chapters/topics, then do problems from the same section before moving forward.</p>
+        <h3>Built-In Reading Notes For This Topic</h3>
+        <p>You do not need to open outside books to use this lesson. These notes summarize how the standard university books organize the topic, so you know what the textbook chapter would be trying to teach.</p>
         <div class="book-list">${renderBookItems(concept.books)}</div>
       </section>
       ${renderDeepChapters(concept)}
@@ -966,7 +1111,42 @@ function openConceptLesson(id) {
   body.querySelectorAll("[data-lesson-check]").forEach((checkbox) => {
     checkbox.addEventListener("change", () => saveLessonCheck(checkbox.dataset.lessonCheck, checkbox.checked));
   });
+  initLessonPlayers(body);
   if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([body]);
+}
+
+function initLessonPlayers(root) {
+  root.querySelectorAll("[data-lesson-player]").forEach((player) => {
+    let index = 0;
+    const slides = [...player.querySelectorAll("[data-lesson-slide]")];
+    const tabs = [...player.querySelectorAll("[data-lesson-tab]")];
+    const progress = player.querySelector("[data-lesson-progress]");
+    const prev = player.querySelector("[data-lesson-prev]");
+    const next = player.querySelector("[data-lesson-next]");
+
+    function showSlide(nextIndex) {
+      index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+      slides.forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === index));
+      tabs.forEach((tab, tabIndex) => tab.classList.toggle("active", tabIndex === index));
+      if (progress) progress.textContent = `${index + 1} / ${slides.length}`;
+      if (prev) prev.disabled = index === 0;
+      if (next) next.textContent = index === slides.length - 1 ? "Finish Lesson" : "Next >";
+      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([player]);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => showSlide(Number(tab.dataset.lessonTab)));
+    });
+    prev?.addEventListener("click", () => showSlide(index - 1));
+    next?.addEventListener("click", () => {
+      if (index === slides.length - 1) {
+        player.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        showSlide(index + 1);
+      }
+    });
+    showSlide(0);
+  });
 }
 
 function closeConceptLesson() {

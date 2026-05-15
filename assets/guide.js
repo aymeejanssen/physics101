@@ -83,7 +83,7 @@ function renderGuide() {
                     <ol>${guideList(chapter.selfTest)}</ol>
                   </div>
                   <div>
-                    <h4>Videos, Notes, Problem Sets, And Exams</h4>
+                    <h4>Optional Outside References</h4>
                     <div class="resource-list">${guideResources(chapter.resources)}</div>
                   </div>
                 </div>
